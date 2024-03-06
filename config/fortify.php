@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Fortify\Features;
+use App\Providers\RouteServiceProvider;
 
 return [
 
@@ -73,7 +74,14 @@ return [
     |
     */
 
-    'home' => '/dashboard',
+    'home' => function () {
+        if (Auth::check()) {
+            if (Auth::user()->role_id == 1 && Auth::user()->role->role_type == 'admin') return RouteServiceProvider::ADMIN;
+            if (Auth::user()->role_id == 3 && Auth::user()->role->role_type == 'student') return RouteServiceProvider::STUDENT;
+        }
+        return '/';
+    },
+    
 
     /*
     |--------------------------------------------------------------------------

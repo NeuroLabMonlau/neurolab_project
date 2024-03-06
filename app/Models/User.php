@@ -29,7 +29,6 @@ class User extends Authenticatable
         'username',
         'password',
         'role_id', //foreignKey
-        'role_type',
         'email',
         'image_path',
         'creation_date',
@@ -71,9 +70,10 @@ class User extends Authenticatable
     /**
      * Relationships
      */
-    public function role(): HasOne
+    public function role(): BelongsTo
     {
-        return $this->hasOne(Role::class);
+        // return $this->hasOne(Role::class);
+        return $this->belongsTo(Role::class, 'role_id');
     }
 
     public function student(): BelongsTo
