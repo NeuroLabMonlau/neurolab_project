@@ -41,6 +41,22 @@ Route::middleware('auth')->group(function () {
     Route::middleware('student')->prefix('student')->group(function () {
         Route::view('/dashboard', 'student.dashboard')->name('dashboard');
     });
+
+    // teacher routes
+    Route::middleware('teacher')->prefix('teacher')->group(function () {
+        Route::view('/dashboard', 'teacher.dashboard')->name('dashboard');
+    });
+
+    // tutor routes
+
+    Route::middleware('tutor')->prefix('tutor')->group(function () {
+        Route::view('/dashboard', 'tutor.dashboard')->name('dashboard');
+    });
+
+    // psychologist routes
+    Route::middleware('psychologist')->prefix('psychologist')->group(function () {
+        Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
+    });
     
     
 });
