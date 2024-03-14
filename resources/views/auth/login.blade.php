@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout >
     <x-authentication-card>
         <x-slot name="logo">
             <x-authentication-card-logo />
@@ -12,36 +12,39 @@
             </div>
         @endif
 
-        <form method="POST" action="{{ route('login') }}">
+        <form class="flex flex-col justify-center" method="POST" action="{{ route('login') }}">
             @csrf
 
-            <div>
+            <div class="flex flex-col justify-center" >
                 <x-label for="email" value="{{ __('Email') }}" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                <x-input id="email" class="block mt-1 w-2/3" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             </div>
 
-            <div class="mt-4">
+            <div class="mt-4 flex flex-col justify-center">
                 <x-label for="password" value="{{ __('Password') }}" />
-                <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                <x-input id="password" class="block mt-1 w-2/3" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="block mt-4 flex justify-center">
                 <label for="remember_me" class="flex items-center">
                     <x-checkbox id="remember_me" name="remember" />
-                    <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                    <span class="ms-2 text-sm text-gray-600">{{ __('Recuerdame') }}</span>
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex flex-col items-center justify-end mt-4">
                 @if (Route::has('password.request'))
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500" href="{{ route('password.request') }}">
+                        {{ __('¿Olvidaste la contraseña?') }}
                     </a>
                 @endif
 
-                <x-button class="ms-4">
-                    {{ __('Log in') }}
+                <x-button class="ms-4 mt-4">
+                    {{ __('Iniciar sesión') }}
                 </x-button>
+            </div>
+            <div class="text-center mt-8">
+                <p class="terms_link font-semibold">Al continuar, estás aceptando los  <a href="" class="underline decoration-solid">Terminos y condiciones</a> y la <a href="" class="text-red-500 font-bold">politca de privacidad</a> de NeuraCrib</p>
             </div>
         </form>
     </x-authentication-card>

@@ -34,8 +34,11 @@ Route::middleware('auth')->group(function () {
     // admin routes
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+        Route::view('/dashboard/neurocrib', 'admin.neurocrib.index')->name('neurocrib');
         
     });
+
+
 
     // student routes
     Route::middleware('student')->prefix('student')->group(function () {

@@ -1,3 +1,10 @@
 <x-app-layout>
-    <h1 class="bg-slate-500">Welcome ADMIN</h1>
+    <div class="w-full p-8">
+        <div>
+            <h1>Welcome</h1>
+        </div>
+        <div>
+            
+        </div>
+    </div>
 </x-app-layout>
