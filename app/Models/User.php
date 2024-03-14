@@ -12,6 +12,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -80,4 +81,24 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Student::class);
     }
+
+      /**
+
+     * Determina si el usuario es un administrador.
+
+     *
+
+     * @return bool
+
+     */
+
+     public function isAdmin(): bool
+
+     {
+ 
+         // Verifica si el usuario tiene un rol de administrador
+ 
+         return $this->role->name === 'admin';
+ 
+     }
 }
