@@ -1,4 +1,4 @@
-<div class="w-full flex flex-row bg-gray-200 p-4 shadow-lg">
+<div class="w-full fixed flex flex-row bg-gray-200 p-4 shadow-lg border-b-2 border-red-400">
 
     {{-- side bar --}}
     <div class="w-72 transition" :class="{'block': open, 'hidden': !open}">
@@ -19,14 +19,27 @@
         </div>
     
         
-    
+        
         <div class="w-4/6 flex justify-start ml-5 items-center">
-            <div class="flex w-24 justify-center items-center mr-8 p-1 bg-zinc-800 rounded-md hover:bg-red-500 transition">
-                <a href="{{ url('/admin/dashboard') }}" class="text-xl font-bold text-gray-200">Inicio</a>
+            {{-- Home --}}
+            <div class="flex w-14 justify-center items-center mr-2 p-1">
+                <a href="{{ url('/admin/dashboard') }}" class="text-xl font-bold hover:text-red-500 "><svg class="fill-zinc-400 hover:fill-red-500  hover:-translate-y-1 active:translate-y-1  hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 -960 960 960" width="34"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
+                
             </div>
-    
-            <div class="flex w-24 justify-center items-center mr-8 p-1 bg-zinc-800 rounded-md hover:bg-red-500 transition">
-                <a href="{{ route('dashboard') }}" class="text-xl font-bold text-gray-200">Monlau</a>
+            
+            {{-- Monlau --}}
+            <div class="flex w-14 justify-center items-center mr-2 p-1">
+                <a href="https://moodlesg.monlau.com/" target="_blank" class="text-xl font-bold "><svg class="fill-zinc-400 hover:fill-red-500 hover:-translate-y-1 active:translate-y-1 hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 -960 960 960" width="34"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/></svg></a>
+            </div>
+
+            {{-- Calendario --}}
+            <div class="flex w-14 justify-center items-center mr-2 p-1">
+                <a href="{{ route('dashboard') }}" class="text-xl font-bold "><svg class="fill-zinc-400 hover:fill-red-500 hover:-translate-y-1 active:translate-y-1 hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 -960 960 960" width="34"><path d="M200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Zm0-480h560v-80H200v80Zm0 0v-80 80Zm280 240q-17 0-28.5-11.5T440-440q0-17 11.5-28.5T480-480q17 0 28.5 11.5T520-440q0 17-11.5 28.5T480-400Zm-160 0q-17 0-28.5-11.5T280-440q0-17 11.5-28.5T320-480q17 0 28.5 11.5T360-440q0 17-11.5 28.5T320-400Zm320 0q-17 0-28.5-11.5T600-440q0-17 11.5-28.5T640-480q17 0 28.5 11.5T680-440q0 17-11.5 28.5T640-400ZM480-240q-17 0-28.5-11.5T440-280q0-17 11.5-28.5T480-320q17 0 28.5 11.5T520-280q0 17-11.5 28.5T480-240Zm-160 0q-17 0-28.5-11.5T280-280q0-17 11.5-28.5T320-320q17 0 28.5 11.5T360-280q0 17-11.5 28.5T320-240Zm320 0q-17 0-28.5-11.5T600-280q0-17 11.5-28.5T640-320q17 0 28.5 11.5T680-280q0 17-11.5 28.5T640-240Z"/></svg></a>
+            </div>
+
+            {{-- Email --}}
+            <div class="flex w-14 justify-center items-center mr-2 p-1">
+                <a href="{{ route('dashboard') }}" class="text-xl font-bold "><svg class="fill-zinc-400 hover:fill-red-500 hover:-translate-y-1 active:translate-y-1 hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 -960 960 960" width="34"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg></a>
             </div>
     
             <div class="flex w-18 h-18 fixed right-4 bottom-4 p-5 bg-zinc-800 rounded-full hover:bg-yellow-500 transition">
