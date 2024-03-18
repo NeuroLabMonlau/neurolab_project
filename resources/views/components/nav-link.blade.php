@@ -51,8 +51,5 @@ $classes = ($active ?? false)
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
         <a class="flex w-full h-16 items-center" href="">Planes Individualizados</a>
     </div>
-    <div class="flex w-full h-16 items-center px-2 bg-indigo-700 text-white hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Prueba</a>
-    </div>
 
 </div>
