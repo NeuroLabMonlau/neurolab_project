@@ -10,12 +10,12 @@ $classes = ($active ?? false)
     {{ $slot }}
 </a>
 
-<div class="h-screen flex-col w-72 left-0 top-0 fixed bg-zinc-700 ">
+<div class="h-screen flex-col w-72 left-0 top-0 fixed bg-gray-200 shadow-2xl">
     <div class="w-full flex shadow-md">
-        <div class="w-4/6 py-4 px-2">
-            <img class="w-32" src="{{ asset('assets/img/LogoB&W.png') }}" alt="">
+        <div class="w-3/6 py-4 px-2">
+            
         </div>
-        <div class="w-2/6 flex justify-end items-start p-2">
+        <div class="w-3/6 flex justify-end items-start p-2">
             <!-- Botón de cierre del menú -->
             {{-- <button @click="open = false" class="text-gray-200" >
                 <!-- Icono de cerrar -->
@@ -23,22 +23,23 @@ $classes = ($active ?? false)
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button> --}}
+            <img class="w-32" src="{{ asset('assets/img/Logo.png') }}" alt="">
         </div>
 
     </div>
-    <div class="flex w-full items-center px-2 text-gray-200 hover:bg-zinc-600 transition font-bold text-2xl shadow-md">
+    <div class="flex w-full items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
         <a class="flex w-full h-16 items-center" href="{{ route('neurocrib') }}">Neurocrib</a>
     </div>
-    <div class="flex w-full h-16 items-center px-2 text-gray-200 hover:bg-zinc-600 transition font-bold text-2xl shadow-md">
+    <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
+        <a class="flex w-full h-16 items-center" href="{{ route('seguimiento') }}">Seguimiento</a>
+    </div>
+    <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
         <a class="flex w-full h-16 items-center" href="">Alumnos</a>
     </div>
-    <div class="flex w-full h-16 items-center px-2 text-gray-200 hover:bg-zinc-600 transition font-bold text-2xl shadow-md">
-        <a class="flex w-full h-16 items-center" href="">Seguimiento</a>
-    </div>
-    <div class="flex w-full h-16 items-center px-2 text-gray-200 hover:bg-zinc-600 transition font-bold text-2xl shadow-md">
+    <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
         <a class="flex w-full h-16 items-center" href="">Estadisticas SOP</a>
     </div>
-    <div class="flex w-full h-16 items-center px-2 text-gray-200 hover:bg-zinc-600 transition font-bold text-2xl shadow-md">
+    <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
         <a class="flex w-full h-16 items-center" href="">Planes Individualizados</a>
     </div>
 
