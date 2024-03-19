@@ -34,22 +34,22 @@ $classes = ($active ?? false)
         <a class="flex w-full h-16 items-center" href="{{ route('seguimiento') }}">Seguimiento</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Usuarios</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.users.index') }}">Usuarios</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Alumnos</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.students.index') }}">Alumnos</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Profesores</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.teachers.index') }}">Profesores</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Tutores</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.tutors.index') }}">Tutores</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Estadisticas SOP</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.sop.index') }}">Estadísticas SOP</a>
     </div>
     <div class="flex w-full h-16 items-center px-2 text-zinc-700 hover:border-r-4 border-red-500 hover:shadow-xl hover:translate-x-1 transition font-bold text-2xl shadow-md active:translate-y-1">
-        <a class="flex w-full h-16 items-center" href="">Planes Individualizados</a>
+        <a class="flex w-full h-16 items-center" href="{{ route('admin.plans.index') }}">Planes individualizados</a>
     </div>
 
 </div>

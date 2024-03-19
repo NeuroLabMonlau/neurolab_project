@@ -26,7 +26,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
         Route::view('/dashboard/neurocrib', 'admin.neurocrib.index')->name('neurocrib');
         Route::view('/dashboard/seguimiento', 'admin.seguimiento.index')->name('seguimiento');
-        
+        Route::view('/dashboard/users', 'admin.users.index')->name('admin.users.index');
+        Route::view('/dashboard/students', 'admin.students.index')->name('admin.students.index');
+        Route::view('/dashboard/teachers', 'admin.teachers.index')->name('admin.teachers.index');
+        Route::view('/dashboard/tutors', 'admin.tutors.index')->name('admin.tutors.index');
+        Route::view('/dashboard/sop', 'admin.sop.index')->name('admin.sop.index');
+        Route::view('/dashboard/plans', 'admin.plans.index')->name('admin.plans.index');
     });
 
 
