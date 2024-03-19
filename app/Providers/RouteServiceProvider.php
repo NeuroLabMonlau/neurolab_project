@@ -22,7 +22,6 @@ class RouteServiceProvider extends ServiceProvider
     public const STUDENT = '/student/dashboard';
     public const TEACHER = '/teacher/dashboard';
     public const TUTOR = '/tutor/dashboard';
-
     public const PSYCHOLOGIST = '/psychologist/dashboard';
 
     /**

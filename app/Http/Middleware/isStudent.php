@@ -17,6 +17,6 @@ class isStudent
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check() && Auth::user()->role_id == 3 && Auth::user()->role->role_type == 'student') return $next($request);
-        return redirect('/')->with('error', 'Access denied. You must be a student to view this page.');
+        return abort(403, 'Access denied. You must be a student to view this page.');
     }
 }

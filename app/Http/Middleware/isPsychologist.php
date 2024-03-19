@@ -18,6 +18,6 @@ class isPsychologist
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check() && Auth::user()->role_id == 5 && Auth::user()->role->role_type == 'psychologist') return $next($request);
-        return redirect('/')->with('error', 'Access denied. You must be a psychologist to view this page.');
+        return abort(403, 'Access denied. You must be a psychologist to view this page.');
     }
 }

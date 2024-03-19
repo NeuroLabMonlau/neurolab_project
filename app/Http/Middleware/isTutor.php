@@ -18,6 +18,6 @@ class isTutor
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check() && Auth::user()->role_id == 4 && Auth::user()->role->role_type == 'tutor') return $next($request);
-        return redirect('/')->with('error', 'Access denied. You must be a tutor to view this page.');
+        return abort(403, 'Access denied. You must be a tutor to view this page.');
     }
 }

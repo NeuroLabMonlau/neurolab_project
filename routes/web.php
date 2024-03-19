@@ -4,8 +4,7 @@
 // use App\Http\Middleware\isStudent;
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,22 +16,13 @@ use App\Http\Controllers\IndexController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'login');
 
-// Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
-//     // Route::get('/dashboard', [IndexController::class, 'index'])->name('index.dashboard');
-//     // Route::get('/dashboard', function () {
-//     //     return view('dashboard');
-//     // })->name('dashboard');
-
-// });
-
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',])->group(function () {
 
     // admin routes
     Route::middleware('admin')->prefix('admin')->group(function () {
+        Route::get('/dashboard/users', [UserController::class, 'index'])->name('users');
         Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
         
     });
@@ -57,7 +47,6 @@ Route::middleware('auth')->group(function () {
     Route::middleware('psychologist')->prefix('psychologist')->group(function () {
         Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
     });
-    
     
 });
 
