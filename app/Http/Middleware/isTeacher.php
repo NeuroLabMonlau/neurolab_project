@@ -17,7 +17,7 @@ class isTeacher
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check() && Auth::user()->role_id == 2 && Auth::user()->role->role_type == 'teacher') return $next($request);
-        return redirect('/')->with('error', 'Access denied. You must be a teacher to view this page.');
+        return abort(403, 'Access denied. You must be a teacher to view this page.');
 
     }
 }

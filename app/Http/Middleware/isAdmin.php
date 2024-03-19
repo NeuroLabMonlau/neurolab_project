@@ -17,7 +17,6 @@ class isAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if(Auth::check() && Auth::user()->role_id == 1 && Auth::user()->role->role_type == 'admin') return $next($request);
-
-        return redirect('/')->with('error', 'Access denied. You must be an admin to view this page.');
+        return abort(403, 'Access denied. You must be an admin to view this page.');
     }
 }
