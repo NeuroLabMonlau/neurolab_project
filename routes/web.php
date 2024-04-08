@@ -38,7 +38,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // student routes
     Route::middleware('student')->prefix('student')->group(function () {
-        Route::view('/dashboard', 'student.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.student.index')->name('student.dashboard');
+        Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
+        Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
     });
 
     // teacher routes
