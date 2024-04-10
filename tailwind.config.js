@@ -19,6 +19,17 @@ export default {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                customGreen: '#3EC785',
+                customGreen1: '#c2fff4',
+                customGreen2: '#7bffe9',
+                customGreen3: '#d2ff9b',
+                customGreen4: '#8cffc1',
+                customGreen5: '#e2ffd7',
+            },
+            spacing: {
+                '18': '4.6rem'
+            }
         },
     },
 
