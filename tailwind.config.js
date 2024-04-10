@@ -12,7 +12,8 @@ export default {
 		 "./resources/**/*.blade.php",
 		 "./resources/**/*.js",
 		 "./resources/**/*.vue",
-		 "./vendor/robsontenorio/mary/src/View/Components/**/*.php"
+		 "./vendor/robsontenorio/mary/src/View/Components/**/*.php",
+		 "./vendor/omnia/livewire-calendar/resources/views/**/*.blade.php", // no se si funciona bien o es otra ruta hay que revisar
 	],
 
     theme: {
