@@ -4,7 +4,9 @@
         <calendar/>
     </div> --}}
 
-    <livewire:appointments-calendar/>
+    <livewire:appointments-calendar
+    before-calendar-view="calendar/before"
+    />
 
 </x-layouts.student.app>
 
