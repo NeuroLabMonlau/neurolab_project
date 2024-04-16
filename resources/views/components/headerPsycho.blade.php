@@ -1,4 +1,4 @@
-<div class="w-full fixed flex flex-row bg-gray-200 shadow-lg p-0 bg-gradient-to-r from-customGreen via-teal-400 to-yellow-200">
+<div class="w-full flex flex-row bg-gray-200 shadow-lg p-0 bg-gradient-to-r from-customGreen via-teal-400 to-yellow-200">
 
     {{-- side bar --}}
     <div class="w-72 transition" :class="{'block': open, 'hidden': !open}">
