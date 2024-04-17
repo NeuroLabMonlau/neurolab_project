@@ -57,7 +57,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::middleware('psychologist')->prefix('psychologist')->group(function () {
         Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
         Route::get('/users', [IndexController::class, 'index'])->name('psycho.users.index');
-        Route::get('/users/{roleId}', [IndexController::class, 'usersFilterByRole']);
+        Route::post('/users', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
     });
     
 });
