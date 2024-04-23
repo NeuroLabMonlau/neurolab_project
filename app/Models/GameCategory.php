@@ -16,4 +16,9 @@ class GameCategory extends Model
         'creation_user',
         'update_user'
     ];
+
+    public function games()
+    {
+        return $this->hasMany(Game::class, 'category_id');
+    }
 }

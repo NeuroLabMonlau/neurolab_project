@@ -20,6 +20,22 @@ class GameTest extends Model
         'creation_date',
         'update_date',
         'creation_user',
-        'update_user'
+        'update_user',
+        'category_id'
     ];
+
+    public function game()
+    {
+        return $this->belongsTo(Game::class, 'game_id');
+    }
+
+    public function test()
+    {
+        return $this->belongsTo(Test::class, 'test_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(GameCategory::class, 'category_id');
+    }
 }
