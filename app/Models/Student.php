@@ -29,9 +29,9 @@ class Student extends Model
         'update_user'
     ];
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function course(): HasOne

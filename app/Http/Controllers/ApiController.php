@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Game;
 use App\Models\GameTest;
 use App\Models\GameTestStudent;
+use App\Models\Student;
 
 class ApiController extends Controller
 {
@@ -26,11 +27,16 @@ class ApiController extends Controller
 
             $gameTestScore = new GameTestStudent();
             $gameTestScore->student_id = $request->input('student_id');
+            $gameTestScore->test_id = $request->input('test_id');
+            $gameTestScore->game_id = $request->input('game_id');
             $gameTestScore->time = $request->input('time');
             $gameTestScore->score = $request->input('score');
             $gameTestScore->errors = $request->input('errors');
-            $gameTestScore->creation_user = $request->input('creation_user');
-            $gameTestScore->update_user = $request->input('update_user');
+
+            $user = Student::where('id', $request->input('student_id'))
+                ->value('user_id');
+            $gameTestScore->creation_user = $user;
+            $gameTestScore->update_user = $user;
             $gameTestScore->save();
 
             return response()->json($gameTestScore, 201);
