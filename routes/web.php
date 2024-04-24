@@ -45,13 +45,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // teacher routes
     Route::middleware('teacher')->prefix('teacher')->group(function () {
-        Route::view('/dashboard', 'teacher.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.teacher.index')->name('teacher.dashboard');
     });
 
     // tutor routes
 
     Route::middleware('tutor')->prefix('tutor')->group(function () {
-        Route::view('/dashboard', 'tutor.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.tutor.index')->name('tutor.dashboard');
+        Route::view('/dashboard/children', 'web.sections.tutor.children')->name('tutor.children');
     });
 
     // psychologist routes
