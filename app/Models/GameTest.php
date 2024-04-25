@@ -12,16 +12,15 @@ class GameTest extends Model
     protected $fillable = [
         'game_id',
         'test_id',
+        'category_id',
         'level', 
         'max_score',
         'rounds',
+        'max_errors',
         'max_time',
         'min_time',
-        'creation_date',
-        'update_date',
         'creation_user',
-        'update_user',
-        'category_id'
+        'update_user'
     ];
 
     public function game()

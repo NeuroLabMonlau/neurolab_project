@@ -7,6 +7,7 @@ use App\Models\Game;
 use App\Models\GameTest;
 use App\Models\GameTestStudent;
 use App\Models\Student;
+use App\Models\GamesParameters;
 
 class ApiController extends Controller
 {
@@ -46,5 +47,19 @@ class ApiController extends Controller
             ], 500);
         }
 
+    }
+
+    public function getGamesParameters()
+    {
+        $gameParameters = GamesParameters::all();
+        return response()->json($gameParameters);
+    }
+
+    public function getGamesParametersByIdLevel($game_id, $level)
+    {
+        $gameParameters = GamesParameters::where('game_id', $game_id)
+            ->where('level', $level)
+            ->get();
+        return response()->json($gameParameters);
     }
 }

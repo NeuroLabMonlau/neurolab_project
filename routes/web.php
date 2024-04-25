@@ -3,6 +3,7 @@
 // use App\Http\Middleware\isAdmin;
 // use App\Http\Middleware\isStudent;
 
+use App\Http\Controllers\Psycho\GamesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Psycho\IndexController;
@@ -58,6 +59,28 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
         Route::get('/users', [IndexController::class, 'index'])->name('psycho.users.index');
         Route::post('/users', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
+
+
+        // Rutas Juegos
+        Route::get('/games', [GamesController::class, 'index'])->name('psycho.games.index');
+        // Rutas Juegos Categorías
+        Route::get('/games/categories', [GamesController::class, 'categoriesIndex'])->name('psycho.games.categories.index');
+        Route::get('/games/categories/create', [GamesController::class, 'categoriesCreateIndex'])->name('psycho.games.categories.create');
+        Route::post('/games/categories/create', [GamesController::class, 'createGameCategory'])->name('psycho.games.categories.store');
+        Route::get('/games/categories/edit/{id}', [GamesController::class, 'categoriesEditIndex'])->name('psycho.games.categories-edit');
+        Route::put('/games/categories/edit/{id}', [GamesController::class, 'updateGameCategory'])->name('psycho.games.categories-update');
+        // Rutas Juegos Juegos
+        Route::get('/games/create', [GamesController::class, 'gamesCreateIndex'])->name('psycho.games.create');
+        Route::post('/games/create', [GamesController::class, 'createGame'])->name('psycho.games.store');
+        Route::get('/games/games', [GamesController::class, 'gamesIndex'])->name('psycho.games.games.index');
+        Route::get('/games/parameters', [GamesController::class, 'gameParametersIndex'])->name('psycho.games.parameters.store');
+        Route::post('/games/parameters', [GamesController::class, 'createGameParameters'])->name('psycho.games.parameters.store');
+        //Rutas Juegos Tests
+        Route::get('/games/tests', [GamesController::class, 'testsIndex'])->name('psycho.games.tests.index');
+        Route::get('/games/tests/create', [GamesController::class, 'testsCreateIndex'])->name('psycho.games.tests.create');
+        Route::post('/games/tests/create', [GamesController::class, 'createTest'])->name('psycho.games.tests.store');
+        Route::get('games/tests/add-games', [GamesController::class, 'addGamesToTestIndex'])->name('psycho.games.tests.add-games');
+        Route::post('games/tests/add-games', [GamesController::class, 'addGamesToTest'])->name('psycho.games.tests.add-games.store');
     });
     
 });
