@@ -1,7 +1,12 @@
-// Función para manejar el cambio en el select de level-game
 function handleLevelGameChange() {
-    let gameId = document.getElementById('game-id').value;
-    let level = document.getElementById('level-game').value;
+    let rows = document.querySelectorAll('.table-rows');
+    let gameId = document.querySelectorAll('.game-id').values();
+    let gameIds = Array.from(gameId).map(id => id.value);
+    let level = document.querySelectorAll('.level-game');
+
+    console.log('rows: ', rows);
+
+    console.log('gameIds: ', gameIds);
 
     document.getElementById('max-scores').innerHTML = '';
     document.getElementById('rounds-game').innerHTML = '';
@@ -15,11 +20,8 @@ function handleLevelGameChange() {
         fetch(`/api/games-parameters`)
             .then(response => response.json())
             .then(data => {
-                console.log('data: ', data);
                 let parameters = data.filter(parameter => parameter.game_id == gameId);
-                console.log('parameters: ', parameters);
                 let parameter = parameters.find(parameter => parameter.level == level);
-                console.log('parameter: ', parameter);
 
                 document.getElementById('max-scores').innerHTML = parameter.max_scores;
                 document.getElementById('rounds-game').innerHTML = parameter.rounds;

@@ -24,12 +24,12 @@
                 </thead>
                 <tbody class="divide-y divide-gray-300">
                     @foreach ($games as $game)
-                    <tr>
-                        <input type="text" id="game-id" value="{{ $game->id }}" hidden>
+                    <tr class="table-rows">
+                        <input type="text" id="game-id" class="game-id" value="{{ $game->id }}" hidden>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $game->name_game }}</td>
                         <td class="px-6 py-4 whitespace-nowrap">{{ $game->category->name_category }}</td>
                         <td class="">
-                            <select name="level" id="level-game" class="px-6 py-4 whitespace-nowrap border-1 border-gray-300 rounded-md">
+                            <select name="level" id="level-game" class="px-6 py-4 whitespace-nowrap border-1 border-gray-300 rounded-md level-game">
                                 <option value=""></option>
                                 @foreach($game->parameters as $parameter)
                                 <option value="{{ $parameter->level }}">{{ $parameter->level }}</option>
