@@ -116,7 +116,7 @@ class GamesController extends Controller
 
     public function gamesIndex()
     {
-        $games = Game::all();
+        $games = Game::with('category', 'parameters')->paginate(10);
         return view('psychologist.games.games-index', ['games' => $games]);
     }
 

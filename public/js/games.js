@@ -1,14 +1,9 @@
-document.getElementById('game_id').addEventListener('change', function () {
+// Función para manejar el cambio en el select de game_id
+function handleGameIdChange() {
     let gameId = document.getElementById('game_id').value;
     let levelSelect = document.getElementById('level');
 
     levelSelect.innerHTML = '<option value="">Selecciona un nivel</option>';
-    document.getElementById('max_scores').value = '';
-    document.getElementById('rounds').value = '';
-    document.getElementById('max_errors').value = '';
-    document.getElementById('max_time').value = ''; 
-    document.getElementById('min_time').value = '';
-
 
     const levelDifficultyMap = {
         1: 'Fácil',
@@ -30,16 +25,12 @@ document.getElementById('game_id').addEventListener('change', function () {
                 });
             });
     }
-});
+}
 
-document.getElementById('level').addEventListener('change', function () {
+// Función para manejar el cambio en el select de level
+function handleLevelChange() {
     let gameId = document.getElementById('game_id').value;
     let level = document.getElementById('level').value;
-    document.getElementById('max_scores').value = '';
-    document.getElementById('rounds').value = '';
-    document.getElementById('max_errors').value = '';
-    document.getElementById('max_time').value = ''; 
-    document.getElementById('min_time').value = '';
 
     if (gameId && level) {
         fetch(`/api/games-parameters`)
@@ -55,4 +46,12 @@ document.getElementById('level').addEventListener('change', function () {
                 document.getElementById('min_time').value = parameter.min_time || '';
             });
     }
-});
+}
+
+
+
+// Agregar EventListeners a los elementos correspondientes
+document.getElementById('game_id').addEventListener('change', handleGameIdChange);
+document.getElementById('level').addEventListener('change', handleLevelChange);
+
+

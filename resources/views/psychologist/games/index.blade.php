@@ -22,7 +22,7 @@
                     </a>
                 </div>
             </div>
-
+ 
             <div class="flex flex-col w-1/3 bg-white rounded-lg shadow-lg p-6 space-y-4 border-2 ">
                 <h3 class="text-2xl font-bold text-gray-800">Gestión de Juegos</h3>
                 <p class="text-sm text-gray-600">Aquí podrás gestionar las categorías de los juegos, crear nuevas o ver y editar las existentes.</p>
