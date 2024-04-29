@@ -75,12 +75,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/games/games', [GamesController::class, 'gamesIndex'])->name('psycho.games.games.index');
         Route::get('/games/parameters', [GamesController::class, 'gameParametersIndex'])->name('psycho.games.parameters.store');
         Route::post('/games/parameters', [GamesController::class, 'createGameParameters'])->name('psycho.games.parameters.store');
+        Route::get('/games/edit/{id}', [GamesController::class, 'gamesEdit'])->name('psycho.games.edit');
+        Route::put('/games/edit/{id}', [GamesController::class, 'updateGame'])->name('psycho.games.update');
         //Rutas Juegos Tests
         Route::get('/games/tests', [GamesController::class, 'testsIndex'])->name('psycho.games.tests.index');
         Route::get('/games/tests/create', [GamesController::class, 'testsCreateIndex'])->name('psycho.games.tests.create');
         Route::post('/games/tests/create', [GamesController::class, 'createTest'])->name('psycho.games.tests.store');
         Route::get('games/tests/add-games', [GamesController::class, 'addGamesToTestIndex'])->name('psycho.games.tests.add-games');
         Route::post('games/tests/add-games', [GamesController::class, 'addGamesToTest'])->name('psycho.games.tests.add-games.store');
+        Route::get('games/tests/edit/{id}', [GamesController::class, 'testsEditIndex'])->name('psycho.games.tests.edit');
+        Route::put('games/tests/edit/{id}', [GamesController::class, 'updateTest'])->name('psycho.games.tests.update');
     });
     
 });

@@ -122,7 +122,7 @@ class GamesController extends Controller
 
     public function testsIndex()
     {
-        $tests = Test::all();
+        $tests = Test::with('gameTests')->paginate(10);
         return view('psychologist.games.tests-index', ['tests' => $tests]);
     }
 
@@ -244,5 +244,77 @@ class GamesController extends Controller
             return back()->with('error', 'Error al actualizar la categoría');
         }
         return back()->with('success', 'Categoría actualizada correctamente');
+    }
+
+    public function gamesEdit($id)
+    {
+        $game = Game::with('category', 'parameters')->find($id);
+        $categories = GameCategory::all();
+        return view('psychologist.games.games-edit', ['game' => $game, 'categories' => $categories]);
+    }
+
+    public function updateGame(Request $request)
+    {
+        $request->validate([
+            'game_id' => 'required|integer',
+            'name_game' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'game_path' => 'required|string|max:255',
+            'game_category_id' => 'required|integer',
+            'level' => 'required|integer|in:1,5,10',
+            'max_scores' => 'nullable|integer',
+            'rounds' => 'nullable|integer',
+            'max_errors' => 'nullable|integer',
+            'max_time' => 'nullable|integer',
+            'min_time' => 'nullable|integer'
+        ]);
+
+        try {
+            $game = Game::find($request->game_id);
+            $game->name_game = $request->name_game;
+            $game->description = $request->description;
+            $game->game_path = $request->game_path;
+            $game->game_category_id = $request->game_category_id;
+            $game->save();
+
+            $parameters = GamesParameters::where('game_id', $request->game_id)->where('level', $request->level)->first();
+            $parameters->max_scores = $request->max_scores;
+            $parameters->rounds = $request->rounds;
+            $parameters->max_errors = $request->max_errors;
+            $parameters->max_time = $request->max_time;
+            $parameters->min_time = $request->min_time;
+            $parameters->save();
+
+            return back()->with('success', 'Juego actualizado correctamente');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el juego');
+        }
+    }
+
+    public function testsEditIndex($id)
+    {
+        $test = Test::all()->find($id);
+        return view('psychologist.games.tests-edit', ['test' => $test]);
+    }
+
+    public function updateTest(Request $request)
+    {
+        $request->validate([
+            'test_name' => 'required|string|max:255',
+        ]);
+
+        $user = auth()->user();
+
+        try {
+            $test = Test::find($request->test_id);
+            $test->test_name = $request->test_name;
+            $test->update_user = $user->id;
+            $test->save();
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el test');
+        }
+
+        return back()->with('success', 'Test actualizado correctamente');
     }
 }

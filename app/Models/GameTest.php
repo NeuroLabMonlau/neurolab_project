@@ -37,4 +37,5 @@ class GameTest extends Model
     {
         return $this->belongsTo(GameCategory::class, 'category_id');
     }
+
 }

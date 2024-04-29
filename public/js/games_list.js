@@ -1,35 +1,41 @@
-function handleLevelGameChange() {
-    let rows = document.querySelectorAll('.table-rows');
-    let gameId = document.querySelectorAll('.game-id').values();
-    let gameIds = Array.from(gameId).map(id => id.value);
-    let level = document.querySelectorAll('.level-game');
+document.querySelectorAll(".level-game").forEach((element) => {
+    element.addEventListener("change", () => {
+        element.closest("tr").querySelector(".max-scores").innerHTML = "";
+        element.closest("tr").querySelector(".rounds-game").innerHTML = "";
+        element.closest("tr").querySelector(".max-errors").innerHTML = "";
+        element.closest("tr").querySelector(".max-time").innerHTML = "";
+        element.closest("tr").querySelector(".min-time").innerHTML = "";
 
-    console.log('rows: ', rows);
+        console.log("aprieto el boton");
+        let level = element.value;
+        console.log(level);
 
-    console.log('gameIds: ', gameIds);
+        let gameId = element.closest("tr").querySelector(".game-id").value;
+        console.log(gameId);
 
-    document.getElementById('max-scores').innerHTML = '';
-    document.getElementById('rounds-game').innerHTML = '';
-    document.getElementById('max-errors').innerHTML = '';
-    document.getElementById('max-time').innerHTML = ''; 
-    document.getElementById('min-time').innerHTML = '';
+        if (gameId && level) {
+            fetch(`/api/games-parameters`)
+                .then((response) => response.json())
+                .then((data) => {
+                    let parameters = data.filter(
+                        (parameter) => parameter.game_id == gameId
+                    );
+                    let parameter = parameters.find(
+                        (parameter) => parameter.level == level
+                    );
 
-    console.log('gameId: ', gameId);
-    console.log('level: ', level);
-    if (gameId && level) {
-        fetch(`/api/games-parameters`)
-            .then(response => response.json())
-            .then(data => {
-                let parameters = data.filter(parameter => parameter.game_id == gameId);
-                let parameter = parameters.find(parameter => parameter.level == level);
+                    let maxScoresTd = element.closest("tr").querySelector(".max-scores");
+                    let roundsGameTd = element.closest("tr").querySelector(".rounds-game");
+                    let maxErrorsTd = element.closest("tr").querySelector(".max-errors");
+                    let maxTimeTd = element.closest("tr").querySelector(".max-time");
+                    let minTimeTd = element.closest("tr").querySelector(".min-time");
 
-                document.getElementById('max-scores').innerHTML = parameter.max_scores;
-                document.getElementById('rounds-game').innerHTML = parameter.rounds;
-                document.getElementById('max-errors').innerHTML = parameter.max_errors;
-                document.getElementById('max-time').innerHTML = parameter.max_time || ''; 
-                document.getElementById('min-time').innerHTML = parameter.min_time || '';
-            });
-    }
-}
-
-document.getElementById('level-game').addEventListener('change', handleLevelGameChange);
+                    maxScoresTd.innerHTML = parameter.max_scores;
+                    roundsGameTd.innerHTML = parameter.rounds;
+                    maxErrorsTd.innerHTML = parameter.max_errors;
+                    maxTimeTd.innerHTML = parameter.max_time;
+                    minTimeTd.innerHTML = parameter.min_time;
+                });
+        }
+    });
+});
