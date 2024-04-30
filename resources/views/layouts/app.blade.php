@@ -33,7 +33,7 @@
         </div>
         <div class="flex">
 
-            @livewire('SideBarComponent')
+            <livewire:sidebar-component />
 
             <!-- Page Content -->
             <main class="w-full">
