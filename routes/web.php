@@ -59,7 +59,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
         Route::get('/users', [IndexController::class, 'index'])->name('psycho.users.index');
         Route::post('/users', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
-
+        Route::post('/users/role', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
+        Route::get('/users/role', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
+        Route::post('/users/course', [IndexController::class, 'usersFilterByCourse'])->name('psycho.users.course');
+        Route::get('/users/course', [IndexController::class, 'usersFilterByCourse'])->name('psycho.users.course');
+        Route::post('/search', [IndexController::class, 'search'])->name('psycho.users.search');
+        Route::get('/search', [IndexController::class, 'search'])->name('psycho.users.search');
 
         // Rutas Juegos
         Route::get('/games', [GamesController::class, 'index'])->name('psycho.games.index');
@@ -85,6 +90,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('games/tests/add-games', [GamesController::class, 'addGamesToTest'])->name('psycho.games.tests.add-games.store');
         Route::get('games/tests/edit/{id}', [GamesController::class, 'testsEditIndex'])->name('psycho.games.tests.edit');
         Route::put('games/tests/edit/{id}', [GamesController::class, 'updateTest'])->name('psycho.games.tests.update');
+
     });
     
 });
