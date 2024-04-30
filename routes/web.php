@@ -40,18 +40,22 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // student routes
     Route::middleware('student')->prefix('student')->group(function () {
-        Route::view('/dashboard', 'student.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.student.index')->name('student.dashboard');
+        Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
+        Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
+        Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
     });
 
     // teacher routes
     Route::middleware('teacher')->prefix('teacher')->group(function () {
-        Route::view('/dashboard', 'teacher.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.teacher.index')->name('teacher.dashboard');
     });
 
     // tutor routes
 
     Route::middleware('tutor')->prefix('tutor')->group(function () {
-        Route::view('/dashboard', 'tutor.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'web.sections.tutor.index')->name('tutor.dashboard');
+        Route::view('/dashboard/children', 'web.sections.tutor.children')->name('tutor.children');
     });
 
     // psychologist routes
