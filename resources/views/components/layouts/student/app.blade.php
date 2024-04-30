@@ -9,10 +9,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-<<<<<<< HEAD
-
-=======
->>>>>>> 3ed1371a978bd96ed71571a55f4238b77716f18e
 </head>
 
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
