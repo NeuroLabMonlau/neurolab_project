@@ -18,8 +18,8 @@
 
     <x-mary-main full-width>
 
-        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
-            @include('components.layouts.tutor.partials.sidebar')
+        <x-slot:sidebar drawer="main-drawer"  class="bg-base-100 lg:bg-inherit flex flex-1 shadow-md min-h-screen p-5 border">
+            <x-layouts.tutor.partials.sidebar />
         </x-slot:sidebar>
 
 
@@ -30,7 +30,7 @@
 
 
         <x-slot:footer>
-            @include('components.layouts.tutor.partials.footer')
+           <x-layouts.tutor.partials.footer />
         </x-slot:footer>
 
 
