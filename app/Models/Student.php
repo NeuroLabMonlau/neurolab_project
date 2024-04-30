@@ -15,7 +15,7 @@ class Student extends Model
         'user_id', //foreignKey
         'idalu',
         'name', 
-        'last_name1',
+        'last_name',
         'last_name2',
         'course_id', //foreignKey
         'date_of_birth',
@@ -34,9 +34,9 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function course(): HasOne
+     public function course()
     {
-        return $this->hasOne(Course::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function address(): HasOne
