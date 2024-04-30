@@ -41,6 +41,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard', 'web.sections.student.index')->name('student.dashboard');
         Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
         Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
+        Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
     });
 
     // teacher routes
