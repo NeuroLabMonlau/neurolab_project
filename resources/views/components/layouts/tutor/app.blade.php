@@ -9,10 +9,6 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
-<<<<<<< HEAD
-
-=======
->>>>>>> 3ed1371a978bd96ed71571a55f4238b77716f18e
 </head>
 
 <body class="min-h-screen font-sans antialiased bg-base-200/50 dark:bg-base-200">
@@ -22,8 +18,8 @@
 
     <x-mary-main full-width>
 
-        <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
-            @include('components.layouts.student.partials.sidebar')
+        <x-slot:sidebar drawer="main-drawer"  class="bg-base-100 lg:bg-inherit flex flex-1 shadow-md min-h-screen p-5 border">
+            <x-layouts.tutor.partials.sidebar />
         </x-slot:sidebar>
 
 
@@ -34,18 +30,13 @@
 
 
         <x-slot:footer>
-            @include('components.layouts.student.partials.footer')
+           <x-layouts.tutor.partials.footer />
         </x-slot:footer>
 
 
     </x-mary-main>
 
-<<<<<<< HEAD
-    @livewireScripts
-
-=======
     @livewireScripts @livewireCalendarScripts
->>>>>>> 3ed1371a978bd96ed71571a55f4238b77716f18e
 </body>
 
 </html>
