@@ -22,4 +22,7 @@ use App\Http\Controllers\ApiController;
 Route::get('/games', [ApiController::class, 'index']);
 Route::post('/games', [ApiController::class, 'store']);
 
+Route::get('/games-parameters', [ApiController::class, 'getGamesParameters']);
+Route::get('/games-parameters/{game_id}/{level}', [ApiController::class, 'getGamesParametersByIdLevel']);
+
 

@@ -18,6 +18,11 @@ class Game extends Model
 
     public function category()
     {
-        return $this->belongsTo(GameCategory::class, 'category_id');
+        return $this->belongsTo(GameCategory::class, 'game_category_id');
+    }
+
+    public function parameters()
+    {
+        return $this->hasMany(GamesParameters::class, 'game_id');
     }
 }
