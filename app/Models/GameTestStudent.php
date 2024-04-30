@@ -11,10 +11,11 @@ class GameTestStudent extends Model
 
     protected $fillable = [
         'student_id',
+        'test_id',
+        'game_id',
         'time',
-        'score', 
-        'creation_date',
-        'update_date',
+        'score',
+        'errors', 
         'creation_user',
         'update_user'
     ];

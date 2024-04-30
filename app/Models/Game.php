@@ -12,9 +12,17 @@ class Game extends Model
     protected $fillable = [
         'name_game',
         'description',
-        'game_path', 
-        'category_id',
-        'creation_date',
-        'update_date'
+        'game_path',
+        'game_category_id',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(GameCategory::class, 'game_category_id');
+    }
+
+    public function parameters()
+    {
+        return $this->hasMany(GamesParameters::class, 'game_id');
+    }
 }
