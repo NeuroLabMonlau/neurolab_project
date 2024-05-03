@@ -94,6 +94,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('games/tests/add-games', [GamesController::class, 'addGamesToTest'])->name('psycho.games.tests.add-games.store');
         Route::get('games/tests/edit/{id}', [GamesController::class, 'testsEditIndex'])->name('psycho.games.tests.edit');
         Route::put('games/tests/edit/{id}', [GamesController::class, 'updateTest'])->name('psycho.games.tests.update');
+        Route::get('games/test/show/{id}', [GamesController::class, 'showTest'])->name('psycho.games.test.show');
+        Route::get('games/test/game-show/{idGame}/{idTest}/{idCategory}', [GamesController::class, 'showTestGame'])->name('psycho.games.test.game-show');
+        Route::get('games/test/game-edit/{idGame}/{idTest}/{idCategory}', [GamesController::class, 'editTestGame'])->name('psycho.games.test.game-edit');
+        Route::put('games/test/game-edit/{idGame}/{idTest}/{idCategory}', [GamesController::class, 'updateTestGame'])->name('psycho.games.test.game-update');
 
     });
     

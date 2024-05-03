@@ -177,14 +177,16 @@ class GamesController extends Controller
         return back()->with('success', 'Test creado correctamente');
     }
 
-    public function addGamesToTestIndex(){
+    public function addGamesToTestIndex()
+    {
         $games = Game::all();
         $tests = Test::all();
         $categories = GameCategory::all();
         return view('psychologist.games.tests-add-games', ['games' => $games, 'tests' => $tests, 'categories' => $categories]);
     }
 
-    public function addGamesToTest(Request $request){
+    public function addGamesToTest(Request $request)
+    {
         $request->validate([
             'game_id' => 'required|integer',
             'test_id' => 'required|integer',
@@ -310,7 +312,68 @@ class GamesController extends Controller
             $test->test_name = $request->test_name;
             $test->update_user = $user->id;
             $test->save();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el test');
+        }
 
+        return back()->with('success', 'Test actualizado correctamente');
+    }
+
+    public function showTest($id)
+    {
+        $testGames = GameTest::with('test', 'game', 'category')->where('test_id', $id)->paginate(10);
+        return view('psychologist.games.tests-show', ['testGames' => $testGames]);
+    }
+
+    public function showTestGame($idGame, $idTest, $idCategory)
+    {
+        $gameTest = GameTest::with('test', 'game', 'category')
+            ->where('game_id', $idGame)
+            ->where('test_id', $idTest)
+            ->where('category_id', $idCategory)
+            ->first();
+
+        return view('psychologist.games.test-game-show', ['gameTest' => $gameTest]);
+    }
+
+    public function editTestGame($idGame, $idTest, $idCategory)
+    {
+        $gameTest = GameTest::with('test', 'game', 'category')
+            ->where('game_id', $idGame)
+            ->where('test_id', $idTest)
+            ->where('category_id', $idCategory)
+            ->first();
+
+        return view('psychologist.games.test-game-edit', ['gameTest' => $gameTest]);
+    }
+
+    public function updateTestGame(Request $request, $idGame, $idTest, $idCategory)
+    {
+        $request->validate([
+            'level' => 'required|integer|in:1,5,10',
+            'max_score' => 'nullable|integer',
+            'rounds' => 'nullable|integer',
+            'max_errors' => 'nullable|integer',
+            'max_time' => 'nullable|integer',
+            'min_time' => 'nullable|integer'
+        ]);
+
+        $user = auth()->user();
+
+        try {
+            $gameTest = GameTest::where('game_id', $idGame)
+                ->where('test_id', $idTest)
+                ->where('category_id', $idCategory)
+                ->first();
+
+            $gameTest->level = $request->level;
+            $gameTest->max_score = $request->max_score;
+            $gameTest->rounds = $request->rounds;
+            $gameTest->max_errors = $request->max_errors;
+            $gameTest->max_time = $request->max_time;
+            $gameTest->min_time = $request->min_time;
+            $gameTest->update_user = $user->id;
+            $gameTest->save();
         } catch (\Exception $e) {
             return back()->with('error', 'Error al actualizar el test');
         }

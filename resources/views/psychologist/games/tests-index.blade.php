@@ -29,7 +29,7 @@
                             @if ($test->gameTests->count() == 0)
                             <a href="{{ route('psycho.games.tests.add-games') }}" class="text-blue-600 hover:underline">Añadir juego</a>
                             @else
-                            <a href="" class="text-blue-600 hover:underline">Ver juegos</a>
+                            <a href="{{ route('psycho.games.test.show', ['id' => $test->id]) }}" class="text-blue-600 hover:underline">Ver juegos</a>
                             @endif                            
                         </td>
                     </tr>

@@ -38,4 +38,9 @@ class GameTest extends Model
         return $this->belongsTo(GameCategory::class, 'category_id');
     }
 
+    public function parameters()
+    {
+        return $this->belongsTo(GamesParameters::class, 'game_id');
+    }
+
 }
