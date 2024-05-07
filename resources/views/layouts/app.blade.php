@@ -25,18 +25,15 @@
 </head>
 
 <body class="font-sans antialiased">
-    <x-banner />
 
     <div class="min-h-screen bg-gray-100 flex flex-col">
-        <div>
-            @livewire('navigation-menu')
-        </div>
-        <div class="flex">
+        @livewire('navigation-menu')
 
+        <div class="flex flex-1">
             <livewire:sidebar-component />
 
             <!-- Page Content -->
-            <main class="w-full">
+            <main class="w-full flex-1 p-5">
                 {{ $slot }}
             </main>
         </div>
