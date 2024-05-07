@@ -36,12 +36,6 @@
 
     </x-mary-main>
 
-<<<<<<< HEAD
-    @livewireScripts
-
-=======
-    @livewireScripts @livewireCalendarScripts
->>>>>>> 3ed1371a978bd96ed71571a55f4238b77716f18e
 </body>
 
 </html>
