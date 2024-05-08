@@ -8,15 +8,28 @@ export default defineComponent({
         Calendar,
         CreateEvent
     },
-    data(){
+    data() {
         return {
-            showModal: false
+            showModal: false,
+            newEvent: {
+                title: '',
+                date_at: '',
+                hour: '',
+                user_id: '',
+                session: 1800
+            }
         }
     },
     methods: {
-        dateClick(arg){
+        dateClick(arg) {
             console.log(arg)
             this.$data.showModal = true
+            this.setModalOpen(arg)
+        },
+        setModalOpen(obj) {
+            const dateAndTime = obj.dateStr.split('T')
+            this.$data.newEvent.date_at = dateAndTime[0]
+            this.$data.newEvent.hour = dateAndTime[1].substring(0, 8)
         }
     }
 
@@ -26,16 +39,12 @@ export default defineComponent({
 
 <template>
     <div>
-        <!-- <h1 class="text-2xl font-semibold text-gray-900 mb-4">
-            Calendar View
-        </h1> -->
         <section>
-            <Calendar @dateClick="dateClick"/>
+            <Calendar @dateClick="dateClick" />
         </section>
 
         <section>
-            <CreateEvent v-if="showModal" @closeModal="showModal = false"/>
-
+            <CreateEvent v-if="showModal" :form="newEvent" @closeModal="showModal = false" />
         </section>
     </div>
 </template>
