@@ -1,15 +1,21 @@
-import './bootstrap';
+import "./bootstrap";
 
-
-import { createApp } from 'vue'
-import calendar from '../views/components/vue/calendar.vue'
-import minicalendar from '../views/components/vue/minicalendar.vue'
+import { createApp } from "vue";
+// import calendar from "../views/components/vue/calendar.vue";
+// import minicalendar from "../views/components/vue/minicalendar.vue";
+// import calendarcreate from "../views/components/vue/psychologist/calendarcreate.vue";
+import Calendar from "../views/components/vue/psychologist/Calendar.vue";
+import CalendarView from "../views/components/vue/psychologist/CalendarView.vue";
 
 window.app = createApp({
     components: {
-        calendar, minicalendar
+        // calendar,
+        // minicalendar,
+        // calendarcreate,
+        Calendar,
+        CalendarView,
     },
-}).mount('#app');
+}).mount("#app");
 
 // const searchInput = document.getElementById('searchInput');
 // searchInput.addEventListener("input", restartTimer, false);
@@ -19,7 +25,6 @@ window.app = createApp({
 //     let sel = document.querySelector("#searchCategory").value;
 //     const searchResultsContainer = document.getElementById('results');
 //     const searchTerm = searchInput.value;
-
 
 //     switch (sel) {
 //         case 'name':
@@ -38,7 +43,7 @@ window.app = createApp({
 //                 .catch(error => console.error('Error:', error));
 //             break;
 //         case 'dni':
-                
+
 //             break;
 //         case 'email':
 
@@ -47,10 +52,8 @@ window.app = createApp({
 //             break;
 //     }
 
-
 // }
 
 // function restartTimer() {
 //     setTimeout(search, 1000);
 // }
-
