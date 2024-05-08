@@ -1,1 +1,1 @@
-<img class="w-48" src="{{ asset('assets/img/logoOscar.png') }}" alt="">
+<img class="w-full" src="{{ asset('assets/img/logoOscar.png') }}" alt="">
