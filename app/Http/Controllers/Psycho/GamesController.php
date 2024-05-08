@@ -380,4 +380,36 @@ class GamesController extends Controller
 
         return back()->with('success', 'Test actualizado correctamente');
     }
+
+    public function deleteGameCategory($id)
+    {
+        $category = GameCategory::find($id);
+        try {
+            $category->delete();
+            return back()->with('success', 'Categoría eliminada correctamente');
+        } catch (\Exception $e) {
+            if ($e->getCode() == 23000){
+                return back()->with('error', 'No se puede eliminar la categoría porque tiene juegos asociados');
+            }
+            return back()->with('error', 'Error al eliminar la categoría');
+        } 
+    }
+
+    public function deleteGame($id)
+    {
+        $game = Game::find($id);
+        try {
+            GamesParameters::where('game_id', $id)->delete();
+            $game->delete();
+            
+
+            return back()->with('success', 'Juego eliminado correctamente');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            if ($e->getCode() == 23000){
+                return back()->with('error', 'No se puede eliminar el juego porque tiene tests asociados pendientes o realizados');
+            }
+            return back()->with('error', 'Error al eliminar el juego');
+        }
+    }
 }

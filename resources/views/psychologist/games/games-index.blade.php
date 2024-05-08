@@ -4,6 +4,19 @@
             <h1 class="text-3xl font-bold text-gray-800">Gestión de Juegos</h1>
         </div>
 
+        @if (session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-8" role="alert">
+            <p class="font-bold">Éxito</p>
+            <p>{{ session('success') }}</p>
+        </div>
+        @endif
+        @if (session('error'))
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-8" role="alert">
+            <p class="font-bold">Error</p>
+            <p>{{ session('error') }}</p>
+        </div>
+        @endif
+
         @if ($games->isEmpty())
         <p class="text-gray-600">No hay juegos disponibles.</p>
         @else
@@ -53,6 +66,11 @@
 
                         <td class="px-6 py-4 whitespace-nowrap">
                             <a href="{{ route('psycho.games.edit', ['id' => $game->id]) }}" class="text-blue-600 hover:underline">Editar</a>
+                            <form action="{{ route('psycho.games.games-delete', ['id' => $game->id]) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:underline">Eliminar</button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

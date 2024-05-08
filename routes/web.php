@@ -74,14 +74,17 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/games', [GamesController::class, 'index'])->name('psycho.games.index');
         // Rutas Juegos Categorías
         Route::get('/games/categories', [GamesController::class, 'categoriesIndex'])->name('psycho.games.categories.index');
+        Route::delete('/games/categories/{id}', [GamesController::class, 'deleteGameCategory'])->name('psycho.games.categories-delete');  
         Route::get('/games/categories/create', [GamesController::class, 'categoriesCreateIndex'])->name('psycho.games.categories.create');
         Route::post('/games/categories/create', [GamesController::class, 'createGameCategory'])->name('psycho.games.categories.store');
         Route::get('/games/categories/edit/{id}', [GamesController::class, 'categoriesEditIndex'])->name('psycho.games.categories-edit');
         Route::put('/games/categories/edit/{id}', [GamesController::class, 'updateGameCategory'])->name('psycho.games.categories-update');
+
         // Rutas Juegos Juegos
         Route::get('/games/create', [GamesController::class, 'gamesCreateIndex'])->name('psycho.games.create');
         Route::post('/games/create', [GamesController::class, 'createGame'])->name('psycho.games.store');
         Route::get('/games/games', [GamesController::class, 'gamesIndex'])->name('psycho.games.games.index');
+        Route::delete('/games/games/{id}', [GamesController::class, 'deleteGame'])->name('psycho.games.games-delete');
         Route::get('/games/parameters', [GamesController::class, 'gameParametersIndex'])->name('psycho.games.parameters.store');
         Route::post('/games/parameters', [GamesController::class, 'createGameParameters'])->name('psycho.games.parameters.store');
         Route::get('/games/edit/{id}', [GamesController::class, 'gamesEdit'])->name('psycho.games.edit');
