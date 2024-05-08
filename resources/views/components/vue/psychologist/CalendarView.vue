@@ -8,6 +8,12 @@ export default defineComponent({
         Calendar,
         CreateEvent
     },
+    props: {
+        user: {
+            type: Object,
+            required: true
+        }
+    },
     data() {
         return {
             showModal: false,
@@ -16,6 +22,7 @@ export default defineComponent({
                 date_at: '',
                 hour: '',
                 user_id: '',
+                sender_id: '',
                 session: 1800
             }
         }
@@ -28,8 +35,10 @@ export default defineComponent({
         },
         setModalOpen(obj) {
             const dateAndTime = obj.dateStr.split('T')
+
             this.$data.newEvent.date_at = dateAndTime[0]
-            this.$data.newEvent.hour = dateAndTime[1].substring(0, 8)
+            this.$data.newEvent.hour = dateAndTime[1].substr(0, 8)
+            this.$data.newEvent.user_id = this.$props.user.id
         }
     }
 
