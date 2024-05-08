@@ -33,7 +33,7 @@
             <livewire:sidebar-component />
 
             <!-- Page Content -->
-            <main class="w-full flex-1 p-5">
+            <main class="w-full flex-1 p-5 bg-slate-200">
                 {{ $slot }}
             </main>
         </div>

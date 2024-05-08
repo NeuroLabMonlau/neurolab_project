@@ -1,11 +1,8 @@
 <x-form-section submit="updatePassword">
-    <x-slot name="title">
-        {{ __('Update Password') }}
-    </x-slot>
-
-    <x-slot name="description">
-        {{ __('Ensure your account is using a long, random password to stay secure.') }}
-    </x-slot>
+    <div>
+        <h1 name="title">Update Password</h1>
+        <h3 name="description">Ensure your account is using a long, random password to stay secure.</h3>
+    </div>
 
     <x-slot name="form">
         <div class="col-span-6 sm:col-span-4">
@@ -17,7 +14,7 @@
         <div class="col-span-6 sm:col-span-4">
             <x-label for="password" value="{{ __('New Password') }}" />
             <x-input id="password" type="password" class="mt-1 block w-full" wire:model="state.password" autocomplete="new-password" />
-            <x-input-error for="password" class="mt-2" />
+            <x-input-err/or for="password" class="mt-2" />
         </div>
 
         <div class="col-span-6 sm:col-span-4">
