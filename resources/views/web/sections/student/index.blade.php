@@ -1,9 +1,7 @@
-<x-layouts.student.app>
+<x-app-layout>
     <x-mary-header title="Bienvenido de nuevo {{ Auth::user()->username }}" size="text-3xl" with-anchor />
 
     <div id="app">
-        <minicalendar/>
+        <minicalendar />
     </div>
-</x-layouts.student.app>
-
-
+</x-app-layout>

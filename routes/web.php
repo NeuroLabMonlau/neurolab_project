@@ -70,6 +70,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/search', [IndexController::class, 'search'])->name('psycho.users.search');
         Route::get('/search', [IndexController::class, 'search'])->name('psycho.users.search');
 
+        // Rutas de calendario
+        Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');
+
         // Rutas Juegos
         Route::get('/games', [GamesController::class, 'index'])->name('psycho.games.index');
         // Rutas Juegos Categorías
