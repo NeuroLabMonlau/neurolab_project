@@ -17,7 +17,7 @@ export default defineComponent({
         plugins: [
           dayGridPlugin,
           timeGridPlugin,
-          interactionPlugin // needed for dateClick
+          interactionPlugin
         ],
         headerToolbar: {
           left: 'prev,next today',
@@ -25,16 +25,12 @@ export default defineComponent({
           right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         initialView: 'dayGridMonth',
-        initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+        // initialEvents: INITIAL_EVENTS,
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
-        eventsSet: this.handleEvents
-        /* you can update a remote database when these fire:
-        eventAdd:
-        eventChange:
-        eventRemove:
-        */
+        eventsSet: this.handleEvents,
+        dateClick: this.handleDateClick
       },
       currentEvents: [],
     }
@@ -43,6 +39,9 @@ export default defineComponent({
     handleEvents(events) {
       this.currentEvents = events
     },
+    handleDateClick(clickInfo){
+      this.$emit('dateClick', clickInfo)
+    }
   }
 })
 
