@@ -5,8 +5,8 @@ use App\Models\User;
 use App\Models\Course;
 ?>
 
-<x-layouts.student.app>
-<div>
+<x-app-layout>
+    <div>
     <div class="items-center">
            
         
@@ -15,4 +15,4 @@ use App\Models\Course;
 
 </div>
 
-</x-layouts.student.app>
+</x-app-layout>

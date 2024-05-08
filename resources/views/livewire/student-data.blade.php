@@ -1,5 +1,5 @@
 
-<div class="bg-slate-200 mx-auto w-full h-full max-w-xl p-8 mt-10">
+<div class=" bg-slate-50 mx-auto w-full h-full max-w-xl p-8 mt-10">
     <h1 class="text-3xl font-bold text-center">{{ $this->getStudent->name }} {{$this->getStudent->last_name}} {{$this->getStudent->last_name2}}</h1> 
 
     <div class="flex justify-center">
