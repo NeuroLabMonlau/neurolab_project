@@ -17,9 +17,9 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="Login-wallpaper h-screen">
+    <body class="Login-wallpaper h-full">
 
-        <div class="flex justify-center items-center flex-col">
+        <div class="font-sans  text-gray-900 antialiased ">
             {{ $slot }}
         </div>
 
