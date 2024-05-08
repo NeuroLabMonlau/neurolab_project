@@ -1,14 +1,13 @@
 <x-guest-layout>
-    <div class="flex flex-row w-full p-4 ">
-        <div class="w-1/6 ">
-            {{-- <img src="../../public/assets/img/logoOscar.jpg" alt=""> --}}
-            <x-authentication-card-logo /> 
+        <div class="flex flex-row w-full p-4 ">
+            <div class="w-1/6 ">
+                {{-- <img src="../../public/assets/img/logoOscar.jpg" alt=""> --}}
+                <x-authentication-card-logo /> 
+            </div>
+            <div class="w-5/6 flex justify-end">
+            
+            </div>
         </div>
-        <div class="w-5/6 flex justify-end">
-          
-        </div>
-    </div>
-
 
         <x-validation-errors class="mb-4" />
 
@@ -18,7 +17,7 @@
             </div>
         @endif
 
-        <div class="flex h-screen justify-center items-start">
+        <div class="flex justify-center flex-1 items-start">
             <form class="flex flex-col justify-center bg-white/50 w-1/3 shadow-xl p-12 rounded-xl" method="POST" action="{{ route('login') }}">
                 @csrf
                     <div class="flex flex-col justify-center" >
