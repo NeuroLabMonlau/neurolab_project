@@ -11,9 +11,12 @@ class Test extends Model
 
     protected $fillable = [
         'test_name',
-        'creation_date',
-        'update_date',
         'creation_user',
         'update_user'
     ];
+
+    public function gameTests()
+    {
+        return $this->hasMany(GameTest::class, 'test_id');
+    }
 }

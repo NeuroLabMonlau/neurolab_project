@@ -5,3 +5,10 @@
 [x-cloak] {
     display: none;
 }
+
+.Login-wallpaper{
+    background-image: url('../../public/assets/img/fondo.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
