@@ -1,5 +1,5 @@
 
-<div class=" bg-white mx-auto w-full h-full max-w-xl p-8 mt-10 mb-18">
+<div class=" bg-white mx-auto w-full h-full max-w-xl p-8 mt-10 mb-18 border border-green-400 ">
     <h1 class="text-3xl font-bold text-center  text-black">{{ $this->getStudent->name }} {{$this->getStudent->last_name}} {{$this->getStudent->last_name2}}</h1> 
 
     <div class="flex justify-center">

@@ -1,4 +1,4 @@
-<x-form-section submit="updatePassword" class=" bg-white mx-auto w-full h-full max-w-xl">
+<x-form-section submit="updatePassword" class=" bg-white mx-auto w-full h-full max-w-xl border border-green-400">
     <div>
         <h1 name="title">Update Password</h1>
         <h3 name="description">Ensure your account is using a long, random password to stay secure.</h3>
