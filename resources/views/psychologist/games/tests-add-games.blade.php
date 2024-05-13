@@ -6,7 +6,7 @@
         </div>
         @endif
         <div class="border-b-2 w-full">
-            <h1 class="text-3xl font-bold text-gray-600">Nuevo Test</h1>
+            <h1 class="text-3xl font-bold text-gray-600">Nuevo juego en test</h1>
         </div>
         <div class="w-1/2">
             <x-validation-errors class="mb-4" />
@@ -14,7 +14,7 @@
                 @csrf
                 <div class="flex flex-col w-full gap-4 p-4">
                     <div class="flex flex-col w-full gap-4">
-                        <label for="test_id" class="text-lg font-bold text-gray-600">Juego</label>
+                        <label for="test_id" class="text-lg font-bold text-gray-600">Test</label>
                         <select name="test_id" id="test_id" class="w-full p-2 border-2 border-gray-300 rounded-md" required>
                             <option value="">Selecciona un test</option>
                             @foreach($tests as $test)

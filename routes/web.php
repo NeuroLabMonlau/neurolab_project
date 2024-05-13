@@ -108,6 +108,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::put('games/tests/test-game-edit/{id}', [GamesController::class, 'updateTestGame'])->name('psycho.games.tests.test-game-update');
         Route::delete('games/tests/test-games/delete/{id}', [GamesController::class, 'deleteTestGame'])->name('psycho.games.tests.test-games.delete');
 
+        //Rutas Asignar juegos a estudiantes
+        Route::get('/games/assign-student', [GamesController::class, 'assignGamesIndex'])->name('psycho.games.assign.index');
     });
     
 });

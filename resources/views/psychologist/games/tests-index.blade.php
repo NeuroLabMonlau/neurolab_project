@@ -47,7 +47,10 @@
                             <a href="{{ route('psycho.games.tests.add-games') }}" class="text-blue-600 hover:underline">Añadir juego</a>
                             @else
                             <a href="{{ route('psycho.games.tests.test-games', ['id' => $test->id]) }}" class="text-blue-600 hover:underline">Ver juegos</a>
-                            @endif 
+                            @endif
+                            
+                            <a href="" class="text-green-600 hover:underline">Asignar alumno</a>
+                            <a href="" class="text-purple-600 hover:underline">Asignar curso</a>
                                                        
                         </td>
                     </tr>
