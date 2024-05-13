@@ -13,3 +13,42 @@
     background-repeat: no-repeat;
 
 }
+
+.studentBg{
+    background-image: url('../../public/assets/img/FondoStudent.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.nav-bg{
+    background-image: url('../../public/assets/img/fondoNav.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#btn-student-dashboard{
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.178);
+}
+
+.tuPlan{
+    background-image: url('../../public/assets/img/tuPlan.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.sociogramBtn{
+    background-image: url('../../public/assets/img/tuPlan.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.jugarBtn{
+    background-image: url('../../public/assets/img/tuPlan.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}

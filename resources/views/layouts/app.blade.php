@@ -29,11 +29,11 @@
     <div class="min-h-screen bg-gray-100 flex flex-col">
         @livewire('navigation-menu')
 
-        <div class="flex flex-1">
-            <livewire:sidebar-component />
+        <div class="flex-1 flex">
+            @livewire('sidebar-component')
 
-            <!-- Page Content -->
-            <main class="w-full flex-1 p-5 bg-slate-200">
+            {{-- @ Page content --}}
+            <main class="bg-slate-200 flex-1 flex flex-col p-4 studentBg">
                 {{ $slot }}
             </main>
         </div>
