@@ -81,6 +81,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/games/categories/create', [GamesController::class, 'createGameCategory'])->name('psycho.games.categories.store');
         Route::get('/games/categories/edit/{id}', [GamesController::class, 'categoriesEditIndex'])->name('psycho.games.categories-edit');
         Route::put('/games/categories/edit/{id}', [GamesController::class, 'updateGameCategory'])->name('psycho.games.categories-update');
+        Route::delete('/games/categories/delete/{id}', [GamesController::class, 'deleteGameCategory'])->name('psycho.games.categories-delete');
+
         // Rutas Juegos Juegos
         Route::get('/games/create', [GamesController::class, 'gamesCreateIndex'])->name('psycho.games.create');
         Route::post('/games/create', [GamesController::class, 'createGame'])->name('psycho.games.store');
@@ -89,6 +91,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/games/parameters', [GamesController::class, 'createGameParameters'])->name('psycho.games.parameters.store');
         Route::get('/games/edit/{id}', [GamesController::class, 'gamesEdit'])->name('psycho.games.edit');
         Route::put('/games/edit/{id}', [GamesController::class, 'updateGame'])->name('psycho.games.update');
+        Route::delete('/games/delete/{id}', [GamesController::class, 'deleteGame'])->name('psycho.games.delete');
+        Route::delete('/games/parameters/delete/{id}', [GamesController::class, 'deleteGameParameter'])->name('psycho.games.parameters.delete');
+
         //Rutas Juegos Tests
         Route::get('/games/tests', [GamesController::class, 'testsIndex'])->name('psycho.games.tests.index');
         Route::get('/games/tests/create', [GamesController::class, 'testsCreateIndex'])->name('psycho.games.tests.create');
@@ -97,6 +102,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('games/tests/add-games', [GamesController::class, 'addGamesToTest'])->name('psycho.games.tests.add-games.store');
         Route::get('games/tests/edit/{id}', [GamesController::class, 'testsEditIndex'])->name('psycho.games.tests.edit');
         Route::put('games/tests/edit/{id}', [GamesController::class, 'updateTest'])->name('psycho.games.tests.update');
+        Route::delete('games/tests/delete/{id}', [GamesController::class, 'deleteTest'])->name('psycho.games.tests.delete');
+        Route::get('games/tests/test-games/{id}', [GamesController::class, 'testGamesIndex'])->name('psycho.games.tests.test-games');
+        Route::get('games/tests/test-game-edit/{id}', [GamesController::class, 'testGameEditIndex'])->name('psycho.games.tests.test-game-edit');
+        Route::put('games/tests/test-game-edit/{id}', [GamesController::class, 'updateTestGame'])->name('psycho.games.tests.test-game-update');
+        Route::delete('games/tests/test-games/delete/{id}', [GamesController::class, 'deleteTestGame'])->name('psycho.games.tests.test-games.delete');
 
     });
     

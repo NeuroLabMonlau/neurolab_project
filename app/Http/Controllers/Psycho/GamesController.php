@@ -317,4 +317,108 @@ class GamesController extends Controller
 
         return back()->with('success', 'Test actualizado correctamente');
     }
+
+    public function deleteGameCategory($id)
+    {
+        $category = GameCategory::find($id);
+        try {
+            $category->delete();
+        } catch (\Exception $e) {
+            if ($e->getCode() == 23000) {
+                return back()->with('error', 'No se puede eliminar la categoría porque tiene juegos asociados');
+            }
+            return back()->with('error', 'Error al eliminar la categoría');
+        }
+        return back()->with('success', 'Categoría eliminada correctamente');
+    }
+
+    public function deleteGame($id)
+    {
+        $game = Game::find($id);
+        try {
+            $game->delete();
+        } catch (\Exception $e) {
+            if ($e->getCode() == 23000) {
+                return back()->with('error', 'No se puede eliminar el juego porque tiene tests o parámetros asociados');
+            }
+            return back()->with('error', 'Error al eliminar el juego');
+        }
+        return back()->with('success', 'Juego eliminado correctamente');
+    }
+
+    public function deleteGameParameter($id)
+    {
+        $parameters = GamesParameters::where('game_id', $id)->get();
+        try {
+            foreach ($parameters as $parameter) {
+                $parameter->delete();
+            }
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al eliminar los parámetros');
+        }
+        return back()->with('success', 'Parámetros eliminados correctamente');
+    }
+
+    public function deleteTest($id)
+    {
+        $test = Test::find($id);
+
+        try {
+            $test->delete();
+        } catch (\Exception $e) {
+            if ($e->getCode() == 23000) {
+                return back()->with('error', 'No se puede eliminar el test porque tiene juegos asociados o ha sido realizado por algún alumno');
+            }
+            return back()->with('error', 'Error al eliminar el test');
+        }
+        return back()->with('success', 'Test eliminado correctamente');
+    }
+
+    public function testGamesIndex($id)
+    {
+        $test = Test::find($id);
+        $games = GameTest::where('test_id', $id)->with('game')->paginate(10);
+        return view('psychologist.games.test-games', ['test' => $test, 'games' => $games]);
+    }
+
+    public function deleteTestGame($id)
+    {
+        $game = GameTest::find($id);
+        try {
+            $game->delete();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al eliminar el juego del test');
+        }
+        return back()->with('success', 'Juego eliminado del test correctamente');
+    }
+
+    public function testGameEditIndex($id)
+    {
+        $gameTest = GameTest::where('id', $id)->with('game')->first();
+        
+        return view('psychologist.games.test-game-edit', ['gameTest' => $gameTest]);
+    }
+
+    public function updateTestGame(Request $request, $id)
+    {
+        $user = auth()->user();
+        try {
+            $gameTest = GameTest::find($id);
+            $gameTest->game_id = $request->game_id;
+            $gameTest->test_id = $request->test_id;
+            $gameTest->category_id = $request->category_id;
+            $gameTest->level = $request->level;
+            $gameTest->max_score = $request->max_scores;
+            $gameTest->rounds = $request->rounds;
+            $gameTest->max_errors = $request->max_errors;
+            $gameTest->max_time = $request->max_time;
+            $gameTest->min_time = $request->min_time;
+            $gameTest->update_user = $user->id;
+            $gameTest->save();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al actualizar el juego del test');
+        }
+
+        return back()->with('success', 'Juego del test actualizado correctamente');
+    }
 }
