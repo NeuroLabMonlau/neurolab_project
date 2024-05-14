@@ -7,6 +7,7 @@ use App\Http\Controllers\Psycho\GamesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Psycho\IndexController;
+use App\Http\Controllers\Psycho\AssignController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,7 +110,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::delete('games/tests/test-games/delete/{id}', [GamesController::class, 'deleteTestGame'])->name('psycho.games.tests.test-games.delete');
 
         //Rutas Asignar juegos a estudiantes
-        Route::get('/games/assign-student', [GamesController::class, 'assignGamesIndex'])->name('psycho.games.assign.index');
+        Route::get('/games/assign-student/{id}', [AssignController::class, 'assignGamesIndex'])->name('psycho.games.assign.index');
     });
     
 });
