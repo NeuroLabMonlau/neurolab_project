@@ -1,4 +1,4 @@
-<aside class="px-3 py-4  {{ Auth::user()->role_id == 5 ? 'bg-gray-50' : 'bg-zinc-900' }}">
+<aside class="px-3 py-4  {{ Auth::user()->role_id == 5 ? 'bg-gray-50' : 'bg-gradient-to-b from-white to-teal-300  rounded-br-full p-8' }}">
     <ul class="space-y-2 font-medium flex-1">
         {{-- User is admin/psychologist --}}
         @if (Auth::user()->role_id == 5)
