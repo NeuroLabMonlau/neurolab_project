@@ -20,4 +20,9 @@ class GameTestStudent extends Model
         'creation_user',
         'update_user'
     ];
+
+    public function tests()
+    {
+        return $this->belongsTo(Test::class, 'test_id');
+    }
 }
