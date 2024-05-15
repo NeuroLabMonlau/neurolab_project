@@ -3,6 +3,18 @@
         <div class="border-b-2 border-gray-300 mb-8">
             <h1 class="text-3xl font-bold text-gray-800">Gestión de Tests</h1>
         </div>
+        @if (session('success'))
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+            <p class="font-bold">¡Éxito!</p>
+            <p>{{ session('success') }}</p>
+        </div>
+        @endif
+        @if (session('error'))
+        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4" role="alert">
+            <p class="font-bold">¡Error!</p>
+            <p>{{ session('error') }}</p>
+        </div>
+        @endif
 
         @if ($tests->isEmpty())
         <p class="text-gray-600">No hay tests disponibles.</p>
@@ -26,11 +38,19 @@
 
                         <td class="px-6 py-4 whitespace-nowrap">
                             <a href="{{ route('psycho.games.tests.edit', ['id' => $test->id]) }}" class="text-blue-600 hover:underline">Editar nombre</a>
+                            <form action="{{ route('psycho.games.tests.delete', ['id' => $test->id]) }}" method="POST" class="inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-yellow-600 hover:underline">Eliminar</button>
+                                </form>
                             @if ($test->gameTests->count() == 0)
                             <a href="{{ route('psycho.games.tests.add-games') }}" class="text-blue-600 hover:underline">Añadir juego</a>
                             @else
-                            <a href="" class="text-blue-600 hover:underline">Ver juegos</a>
-                            @endif                            
+                            <a href="{{ route('psycho.games.tests.test-games', ['id' => $test->id]) }}" class="text-blue-600 hover:underline">Ver juegos</a>
+                            @endif
+                            <a href="{{ route('psycho.games.assign.index', ['id' => $test->id]) }}" class="text-green-600 hover:underline">Asignar alumno</a>
+                            <a href="{{ route('psycho.games.assign-course.index', ['id' => $test->id]) }}" class="text-purple-600 hover:underline">Asignar curso</a>
+                                                       
                         </td>
                     </tr>
                     @endforeach

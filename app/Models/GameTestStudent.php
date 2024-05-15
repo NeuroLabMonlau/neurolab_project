@@ -15,7 +15,8 @@ class GameTestStudent extends Model
         'game_id',
         'time',
         'score',
-        'errors', 
+        'errors',
+        'played', 
         'creation_user',
         'update_user'
     ];
