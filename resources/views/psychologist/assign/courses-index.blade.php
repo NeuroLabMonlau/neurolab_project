@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="container mx-auto px-4 py-8">
         <div class="border-b-2 border-gray-300 mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Assignar a un alumno</h1>
+            <h1 class="text-3xl font-bold text-gray-800">Assignar a un curso</h1>
             <h1 class="text-xl font-bold text-gray-800">{{ $test->test_name }}</h1>
         </div>
 
@@ -22,31 +22,25 @@
             <table class="w-full bg-white border border-gray-300 rounded-lg shadow-md">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">1r. Apellido</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">2o. Apellido</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Curso</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nº Alumnos</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-300">
-                    @foreach ($students as $student)
+                    @foreach ($courses as $course)
                     <tr class="table-rows">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->last_name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->last_name2 }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->email }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ $student->course->course_name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $course->course_name }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">{{ $course->students->count() }}</td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <form action="{{ route('psycho.games.assign.store', ['student_id' => $student->id, 'test_id' => $test->id]) }}" method="post">
+                            <form action="{{ route('psycho.games.assign-course.store', ['course_id' => $course->id, 'test_id' => $test->id]) }}" method="post">
                                 @csrf
-                                    @if($gamesTestStudents->contains('student_id', $student->id) && $gamesTestStudents->contains('test_id', $test->id) && $gamesTestStudents->contains('played', 'false'))
-                                        <input type="submit" value="Asignar" class="text-gray-400" disabled>
-                                    @else
-                                    <input type="submit" value="Asignar" class="text-blue-600 hover:underline hover:cursor-pointer">
-                                    @endif
+                                @if ($course->students->count() == 0)
+                                <input type="submit" value="Asignar" class="text-gray-400" disabled>
+                                @else
+                                 <input type="submit" value="Asignar" class="text-blue-600 hover:underline hover:cursor-pointer">
+                                @endif
                             </form>
                                                        
                         </td>
@@ -57,7 +51,7 @@
         </div>
 
         <div class="mt-8">
-            {{ $students->links() }}
+            {{ $courses->links() }}
         </div>
 
         <div class="mt-8 flex justify-between">

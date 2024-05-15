@@ -111,6 +111,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
         //Rutas Asignar juegos a estudiantes
         Route::get('/games/assign-student/{id}', [AssignController::class, 'assignGamesIndex'])->name('psycho.games.assign.index');
+        Route::post('/games/assign-student/{student_id}/{test_id}', [AssignController::class, 'assignGames'])->name('psycho.games.assign.store');
+        Route::get('/games/assign-course/{id}', [AssignController::class, 'assignGamesCourseIndex'])->name('psycho.games.assign-course.index');
+        Route::post('/games/assign-course/{course_id}/{test_id}', [AssignController::class, 'assignGamesCourse'])->name('psycho.games.assign-course.store');
     });
     
 });
