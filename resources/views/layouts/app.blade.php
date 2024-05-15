@@ -24,18 +24,19 @@
     @livewireStyles
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased ">
 
-    <div class="min-h-screen bg-gray-100 flex flex-col">
+    <div class="min-h-screen bg-gray-100 flex flex-col studentBg">
         @livewire('navigation-menu')
 
-        <div class="flex flex-1">
-            <livewire:sidebar-component />
-
-            <!-- Page Content -->
-            <main class="w-full flex-1 p-5 bg-slate-200">
+        <div class="flex-1 flex ">
+            @livewire('sidebar-component')
+            
+            {{-- @ Page content --}}
+            <main class="flex-1 flex flex-col p-8 ">
                 {{ $slot }}
             </main>
+            
         </div>
     </div>
 
