@@ -69,6 +69,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/users/course', [IndexController::class, 'usersFilterByCourse'])->name('psycho.users.course');
         Route::post('/search', [IndexController::class, 'search'])->name('psycho.users.search');
         Route::get('/search', [IndexController::class, 'search'])->name('psycho.users.search');
+        Route::get('/users/{id}', [IndexController::class, 'edituser'])->name('psycho.users.edit');
+
 
         // Rutas de calendario
         Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');

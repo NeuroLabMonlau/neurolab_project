@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Psycho;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,14 +19,16 @@ class IndexController extends Controller
     protected $user;
     protected $student;
     protected $tutor;
+    protected $address;
 
-    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor)
+    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor, Address $address)
     {
         $this->role = $role;
         $this->course = $course;
         $this->user = $user;
         $this->student = $student;
         $this->tutor = $tutor;
+        $this->address = $address;
     }
 
     public function index()
@@ -131,6 +134,23 @@ class IndexController extends Controller
         }
     }
 
+    public function edituser(Request $request) {
+        $user_id = $request['id'];
+        $user = $this->user->find($user_id);
+        $student = $this->student->where('user_id', $user_id)->first();
+        $course = $this->course->find($student->course_id);
+        $address =$this->address->where('id', $student->address_id)->first();
+        return view('psychologist.users.edit', compact('user', 'student', 'course', 'address'));
+    }
+
+    public function deleteuser(Request $request) {
+        $user_id = $request['id'];
+        $user = $this->user->find($user_id);
+        $student = $this->student->where('user_id', $user_id)->first();
+        return view('psychologist.users.delete', compact('user', 'student', 'course', 'address'));
+    }
+    
+
     private function getData()
     {
         $roles = $this->role->all();
@@ -138,13 +158,15 @@ class IndexController extends Controller
         $students = $this->student->paginate(10);
         $tutors = $this->tutor->all();
         $users = $this->user->all();
+        $addresses = $this->address->all();
 
         return [
             'roles' => $roles,
             'courses' => $courses,
             'students' => $students,
             'tutors' => $tutors,
-            'users' => $users
+            'users' => $users,
+            'addresses' => $addresses
         ];
     }
 }
