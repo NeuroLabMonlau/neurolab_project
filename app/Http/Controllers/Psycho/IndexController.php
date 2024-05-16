@@ -149,6 +149,12 @@ class IndexController extends Controller
         $student = $this->student->where('user_id', $user_id)->first();
         return view('psychologist.users.delete', compact('user', 'student', 'course', 'address'));
     }
+
+    public function enabledit(Request $request)
+    {
+        
+        return back()->with('edit', 'Edición habilitada');
+    }
     
 
     private function getData()
