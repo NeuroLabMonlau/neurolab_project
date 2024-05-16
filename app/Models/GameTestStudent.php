@@ -25,4 +25,9 @@ class GameTestStudent extends Model
     {
         return $this->belongsTo(Test::class, 'test_id');
     }
+
+    public function games()
+    {
+        return $this->belongsTo(Game::class, 'game_id');
+    }
 }

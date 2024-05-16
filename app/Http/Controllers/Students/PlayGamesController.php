@@ -4,16 +4,20 @@ namespace App\Http\Controllers\Students;
 
 use App\Http\Controllers\Controller;
 use App\Models\GameTestStudent;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class PlayGamesController extends Controller
 {
     public function index()
     {
-        $pendingTests = GameTestStudent::where('student_id', auth()->user()->id)
+        $studentId = Student::where('user_id', auth()->user()->id)->first()->id;
+
+        $pendingTests = GameTestStudent::where('student_id', $studentId)
             ->where('played', 'false')
-            ->with('tests')
+            ->with(['tests', 'games'])
             ->get();
+        
         return view('web.sections.student.games', ['pendingTests' => $pendingTests]);
     }
 }
