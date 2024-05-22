@@ -73,6 +73,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/users/{id}/delete', [IndexController::class, 'deleteuser'])->name('psycho.users.delete');
         // Route::put('/users/{id}', [IndexController::class, 'edit'])->name('psycho.users.edit');
         Route::get('users1/{id}' , [IndexController::class, 'enabledit'])->name('psycho.users.enabledit');
+        Route::put('users/{id}' , [IndexController::class, 'updateUser'])->name('psycho.users.updateuser');
+        Route::delete('users/{id}' , [IndexController::class, 'deleteuser'])->name('psycho.users.deleteuser');
 
         // Rutas de calendario
         Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');

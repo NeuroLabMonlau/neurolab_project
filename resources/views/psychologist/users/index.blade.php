@@ -1,5 +1,21 @@
 <x-app-layout>
-    
+    <?php
+    function getCookies()
+    {
+        $userDel = $_COOKIE['userDel'] ?? null;
+        return $userDel;
+    }
+    ?>
+
+    @if (session('error'))
+        <div class="bg-red-500 text-white p-4 rounded-lg text-center mb-4">
+            {{ session('error') }}
+        </div>
+    @elseif (@session('success'))
+        <div class="bg-green-500 text-white p-4 rounded-lg text-center mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="p-4 text-gray-600 flex flex-col gap-4">
         <div class="border-b-2">
             <h1 class="text-3xl font-bold">Gestión de usuarios</h1>
@@ -123,19 +139,19 @@
                                 <td class="p-3 px-5">{{ $user->role->role_type ?? 'Sin rol' }}</td>
                                 <td class="p-3 px-5">{{ $user->student->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
-                                    <button type="button" 
+                                    <button type="button"
                                         class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $user->id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                        </a>
                                     </button>
 
-                                    <button type="button" wire:click="showModal" wire:loading.attr="disabled"
-
+                                    <button type="button"
+                                        onclick="openModal({{ $user->id }})" 
                                         class="text-sm text-red-500 hover:bg-red-500 hover:text-white  py-1 px-2 rounded focus:outline-none focus:shadow-outline"><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -164,16 +180,17 @@
                                     <button type="button" href="{{ route('psycho.users.edit', $student->user_id) }}"
                                         class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $student->user_id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                        </a>
                                     </button>
 
-                                    <button onclick="Livewire.emit('openModal', '{{$student->user_id}}')"
-
+                                    <button type="button"
+                                        onclick="openModal({{ $student->user_id }})"
                                         class="text-sm text-red-500 hover:bg-red-500 hover:text-white  py-1 px-2 rounded focus:outline-none focus:shadow-outline"><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -182,7 +199,7 @@
                                         </svg>
 
                                     </button>
-                                    
+
 
 
 
@@ -198,19 +215,20 @@
                                 <td class="p-3 px-5">{{ $result->role->role_type ?? 'Sin rol' }}</td>
                                 <td class="p-3 px-5">{{ $result->student->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
-                                    <button type="button" 
+                                    <button type="button"
                                         class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                        </a>
                                     </button>
 
-                                    <button type="button" wire:click="showModal" wire:loading.attr="disabled"
-
+                                    <button type="button"
+                                        onclick="openModal({{ $result->id }})"
                                         class="text-sm text-red-500 hover:bg-red-500 hover:text-white  py-1 px-2 rounded focus:outline-none focus:shadow-outline"><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -219,7 +237,7 @@
                                         </svg>
 
                                     </button>
-                                    
+
 
 
 
@@ -227,7 +245,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                     
                     @elseif (isset($filterByEmail))
                         @foreach ($results as $result)
                             <tr class="border-b bg-gray-100">
@@ -236,19 +253,20 @@
                                 <td class="p-3 px-5">{{ $result->role->role_type ?? 'Sin rol' }}</td>
                                 <td class="p-3 px-5">{{ $result->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
-                                    <button type="button" 
+                                    <button type="button"
                                         class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                        </a>
                                     </button>
 
-                                    <button type="button" wire:click="showModal" wire:loading.attr="disabled"
-
+                                    <button type="button"
+                                        onclick="openModal({{ $result->id }})"
                                         class="text-sm text-red-500 hover:bg-red-500 hover:text-white  py-1 px-2 rounded focus:outline-none focus:shadow-outline"><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -265,7 +283,6 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
                     @elseif (isset($filterByDni))
                         @foreach ($results as $result)
                             <tr class="border-b bg-gray-100">
@@ -275,18 +292,20 @@
                                 <td class="p-3 px-5">{{ $result->role->role_type ?? 'Sin rol' }}</td>
                                 <td class="p-3 px-5">{{ $result->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
-                                    <button type="button" 
+                                    <button type="button"
                                         class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->user_id) }}">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                        </svg>
-                                    </a>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                            </svg>
+                                        </a>
                                     </button>
 
-                                    <button type="button" wire:click="showModal" wire:loading.attr="disabled"
+                                    <button type="button"
+                                        onclick="openModal({{ $result->user_id }})"
                                         class="text-sm text-red-500 hover:bg-red-500 hover:text-white  py-1 px-2 rounded focus:outline-none focus:shadow-outline"><svg
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -301,23 +320,80 @@
                                 </td>
                             </tr>
                         @endforeach
-                        
+
                     @endif
                 </tbody>
             </table>
             @if (isset($filterByRole))
-            {{ $results->appends(request()->input())->links() }}
+                {{ $users->appends(request()->input())->links() }}
             @elseif (isset($filterByCourse))
-            {{ $students->appends(request()->input())->links() }}
+                {{ $students->appends(request()->input())->links() }}
             @elseif(isset($filterByName))
-            {{ $results->appends(request()->input())->links() }}
+                {{ $results->appends(request()->input())->links() }}
             @elseif (isset($filterByEmail))
-            {{ $results->appends(request()->input())->links() }}
+                {{ $results->appends(request()->input())->links() }}
             @elseif (isset($filterByDni))
-            {{ $results->appends(request()->input())->links() }}
+                {{ $results->appends(request()->input())->links() }}
             @endif
         </div>
     </div>
-    <livewire:custom-modal-del wire:listeners="openModal" />
+
+    <div class="relative z-10 hidden" id="modal" aria-labelledby="modal-title" role="dialog"
+        aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                <div
+                    class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                    <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div
+                                class="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                                <svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24"
+                                    stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                            </div>
+                            <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">¿Estás
+                                    seguro?</h3>
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-500">Estás seguro que quieres eliminar este usuario?
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <a href="{{ route('psycho.users.delete', getCookies() ) }}"
+                            class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Eliminar</a>
+                        <button type="button"
+                            class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                            onclick="closeModal()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </x-app-layout>
 
+<script>
+    // Open modal
+    userDel = null;
+
+    function openModal(userId1) {
+        // Show the modal by adding a CSS class
+        document.getElementById('modal').classList.remove('hidden');
+        userDel = userId1;
+        document.cookie = "userDel=" + userDel;
+    }
+
+    // Close modal
+    function closeModal() {
+        // Hide the modal by removing the CSS class
+        document.getElementById('modal').classList.add('hidden');
+    }
+
+    
+</script>
