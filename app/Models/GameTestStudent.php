@@ -11,6 +11,7 @@ class GameTestStudent extends Model
 
     protected $fillable = [
         'student_id',
+        'game_test_id',
         'test_id',
         'game_id',
         'time',
@@ -30,4 +31,11 @@ class GameTestStudent extends Model
     {
         return $this->belongsTo(Game::class, 'game_id');
     }
+
+    public function gameTests()
+    {
+        return $this->belongsTo(GameTest::class, 'game_test_id');
+    }
+
+    
 }

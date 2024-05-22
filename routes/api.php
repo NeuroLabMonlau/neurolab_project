@@ -19,7 +19,7 @@ use App\Http\Controllers\ApiController;
 //     return $request->user();
 // });
 
-Route::get('/games', [ApiController::class, 'index']);
+Route::get('/games', [ApiController::class, 'index'])->name('games.api');
 Route::post('/games', [ApiController::class, 'store']);
 
 Route::get('/games-parameters', [ApiController::class, 'getGamesParameters']);

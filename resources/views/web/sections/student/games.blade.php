@@ -7,12 +7,12 @@
             <div class="p-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-28">
                     @foreach($pendingTests as $pendingTest)
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden border-2 border-emerald-300">
                             <img src="{{ asset('img/image-card.jpg') }} " class="w-full h-48 object-cover" alt="{{ $pendingTest->games->name_game }}">
                             <div class="p-6">
                                 <h5 class="text-lg font-bold">Test: {{ $pendingTest->tests->test_name }}</h5>
                                 <p class="text-gray-700">Juego: {{ $pendingTest->games->name_game }}</p>
-                                <a href="{{ $pendingTest->games->game_path }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Play</a>
+                                <a href="{{ route('student.games.play', ['student_id' => $pendingTest->student_id, 'gameTest_id' => $pendingTest->gameTests->id]) }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Play</a>
                             </div>
                         </div>
                     @endforeach

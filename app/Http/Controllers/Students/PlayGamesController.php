@@ -20,4 +20,10 @@ class PlayGamesController extends Controller
         
         return view('web.sections.student.games', ['pendingTests' => $pendingTests]);
     }
+
+    public function play($student_id, $gameTest_id) {
+
+       return redirect('https://neurolab.alumnes-monlau.com?id=' . $student_id . '&gameTest_id='. $gameTest_id);
+    }
+
 }
