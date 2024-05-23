@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\Tutor;
+use App\Models\Docent;
 use Illuminate\Support\Facades\View;
 
 class IndexController extends Controller
@@ -20,8 +21,9 @@ class IndexController extends Controller
     protected $student;
     protected $tutor;
     protected $address;
+    protected $docent;
 
-    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor, Address $address)
+    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor, Address $address, Docent $docent)
     {
         $this->role = $role;
         $this->course = $course;
@@ -29,6 +31,7 @@ class IndexController extends Controller
         $this->student = $student;
         $this->tutor = $tutor;
         $this->address = $address;
+        $this->docent = $docent;
     }
 
     public function index()
@@ -38,8 +41,9 @@ class IndexController extends Controller
         $tutors = $data['tutors'];
         $roles = $data['roles'];
         $courses = $data['courses'];
+        $docents = $data['docents'];
 
-        return view('psychologist.users.index', compact('users', 'data', 'tutors', 'roles', 'courses'));
+        return view('psychologist.users.index', compact('users', 'data', 'tutors', 'roles', 'courses', 'docents'));
     }
 
     public function usersFilterByRole(Request $request)
@@ -183,6 +187,8 @@ class IndexController extends Controller
             'public_road' => 'required|string|max:255',
             'cp' => 'required|string|max:10',
             'province' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'municipality' => 'required|string|max:255',
             'address_id' => 'required|integer',
             'course_id' => 'required|integer'
         ]);
@@ -202,11 +208,93 @@ class IndexController extends Controller
             $address->public_road = $request->public_road;
             $address->cp = $request->cp;
             $address->province = $request->province;
+            $address->country = $request->country;
+            $address->municipality = $request->municipality;
             $address->save();
 
             return back()->with('success', 'Usuario actualizado correctamente');
         } catch (\Exception $e) {
             return back()->with('error', 'Error al actualizar el usuario');
+        }
+    }
+
+    public function createuserview(Request $request) {
+        $data = $this->getData();
+        $users = $data['users'];
+        $tutors = $data['tutors'];
+        $roles = $data['roles'];
+        $courses = $data['courses'];
+        $addresses = $data['addresses'];
+        return view('psychologist.users.create', compact('users', 'data', 'tutors', 'roles', 'courses', 'addresses'));
+    }
+
+    public function createuser(Request $request) {
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'last_name2' => 'nullable|string|max:255',
+            'idalu' => 'required|string|max:255',
+            'dni_nif' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'email' => 'required|email|max:255',
+            'public_road' => 'required|string|max:255',
+            'cp' => 'required|string|max:10',
+            'province' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'municipality' => 'required|string|max:255',
+            'course_id' => 'required|integer',
+            'role_id' => 'required|integer',
+            'tutor_id' => 'required|integer'
+        ]);
+
+        try {
+
+            $user = new User();
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->role_id = $request->role_id;
+            $user->password = bcrypt('12345678');
+            $user->save();
+
+            if ($request->role_id == 3) {
+            $address = new Address();
+            $address->public_road = $request->public_road;
+            $address->cp = $request->cp;
+            $address->province = $request->province;
+            $address->country = $request->country;
+            $address->municipality = $request->municipality;
+            $address->save();
+
+            $student = new Student();
+            $student->user_id = $user->id;
+            $student->name = $request->name;
+            $student->last_name = $request->last_name;
+            $student->last_name2 = $request->last_name2;
+            $student->idalu = $request->idalu;
+            $student->dni_nif = $request->dni_nif;
+            $student->date_of_birth = $request->date_of_birth;
+            $student->email = $request->email;
+            $student->course_id = $request->course_id;
+            $student->address_id = $address->id;
+            $student->save();
+            } else {
+                $docent = new Docent();
+                $docent->user_id = $user->id;
+                $docent->name = $request->name;
+                $docent->lastname1 = $request->last_name;
+                $docent->lastname2 = $request->last_name2;
+                $docent->email = $request->email;
+                $docent->save();
+            }
+
+            
+
+           
+
+            return back()->with('success', 'Usuario creado correctamente');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error al crear el usuario');
         }
     }
 
@@ -218,6 +306,7 @@ class IndexController extends Controller
         $tutors = $this->tutor->all();
         $users = $this->user->all();
         $addresses = $this->address->all();
+        $docents = $this->docent->all();
 
         return [
             'roles' => $roles,
@@ -225,7 +314,8 @@ class IndexController extends Controller
             'students' => $students,
             'tutors' => $tutors,
             'users' => $users,
-            'addresses' => $addresses
+            'addresses' => $addresses,
+            'docents' => $docents
         ];
     }
 }

@@ -1,11 +1,5 @@
 <x-app-layout>
-    <?php
-    function getCookies()
-    {
-        $userDel = $_COOKIE['userDel'] ?? null;
-        return $userDel;
-    }
-    ?>
+    
 
     @if (session('error'))
         <div class="bg-red-500 text-white p-4 rounded-lg text-center mb-4">
@@ -18,7 +12,11 @@
     @endif
     <div class="p-4 text-gray-600 flex flex-col gap-4">
         <div class="border-b-2">
+            <div class="flex flex-row justify-between items-center">
             <h1 class="text-3xl font-bold">Gestión de usuarios</h1>
+            <a href="{{ route('psycho.users.createview')}}" class="px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">
+             <span>Añadir Usuario</span></a>
+            </div>
         </div>
         <div>
             <h3 class="text-2xl font-semibold">Busqueda de usuarios</h3>
@@ -26,15 +24,17 @@
         </div>
         <div>
             <form action="{{ route('psycho.users.search') }}"
-                class="search-container rounded-xl flex flex-row p-4 mr-14 border-b-2">
-                <input type="text" id="searchInput" name="searchInput" class="rounded-xl w-full"
-                    placeholder="Search...">
-                <select id="searchCategory" name="searchCategory" class="rounded-xl">
-                    <option value="name">Nombre</option>
-                    <option value="dni">DNI</option>
-                    <option value="email">Email</option>
-                </select>
-                </input>
+                class="search-container rounded-xl flex flex-row p-4 mr-14 ">
+                <div class="flex w-full focus:outline-none focus:ring-2 focus:ring-teal-200 border-b-2 ">
+                    <input type="text" id="searchInput" name="searchInput" class="flex-grow rounded-l-xl border px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-none" placeholder="Search...">
+                    <div class="relative">
+                        <select id="searchCategory" name="searchCategory" class="block appearance-none rounded-r-xl border-l-0 border bg-white px-4 py-2 pr-8 focus:outline-none focus:ring-2 focus:border-none focus:ring-teal-200">
+                            <option value="name">Nombre</option>
+                            <option value="dni">DNI</option>
+                            <option value="email">Email</option>
+                        </select>
+                    </div>
+                </div>
                 <button><i class="material-icons text-3xl hover:text-customGreen">search</i></button>
             </form>
         </div>
@@ -49,7 +49,7 @@
                     <form action="{{ route('psycho.users.role') }}" method="post">
                         @csrf
                         <div class="flex gap-2 items-center">
-                            <select name="role" id="role" class="rounded-xl">
+                            <select name="role" id="role" class="rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-none">
                                 <option value="">Seleccione una opción...</option>
                                 @foreach ($roles as $role)
                                     <option value="{{ $role->id }}">{{ $role->role_type }}</option>
@@ -66,7 +66,7 @@
                     <form action="{{ route('psycho.users.course') }}" method="post">
                         @csrf
                         <div class="flex gap-2 items-center">
-                            <select name="course" id="course" class="rounded-xl">
+                            <select name="course" id="course" class="rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-200 focus:border-none">
                                 <option value="">Seleccione una opción...</option>
                                 @foreach ($courses as $course)
                                     <option id="course-option" value="{{ $course->id }}">{{ $course->course_name }}
@@ -140,7 +140,7 @@
                                 <td class="p-3 px-5">{{ $user->student->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
                                     <button type="button"
-                                        class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        class="mr-3 text-sm text-black hover:bg-customGreen hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $user->id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -178,7 +178,7 @@
                                 <td class="p-3 px-5">{{ $student->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
                                     <button type="button" href="{{ route('psycho.users.edit', $student->user_id) }}"
-                                        class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        class="mr-3 text-sm text-black hover:bg-customGreen hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $student->user_id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -216,7 +216,7 @@
                                 <td class="p-3 px-5">{{ $result->student->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
                                     <button type="button"
-                                        class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        class="mr-3 text-sm text-black hover:bg-customGreen hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -254,7 +254,7 @@
                                 <td class="p-3 px-5">{{ $result->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
                                     <button type="button"
-                                        class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        class="mr-3 text-sm text-black hover:bg-customGreen hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -293,7 +293,7 @@
                                 <td class="p-3 px-5">{{ $result->course->course_name ?? 'Sin curso' }}</td>
                                 <td class="p-3 px-5 flex justify-end">
                                     <button type="button"
-                                        class="mr-3 text-sm text-black hover:bg-blue-500 hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                                        class="mr-3 text-sm text-black hover:bg-customGreen hover:text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                         <a href="{{ route('psycho.users.edit', $result->user_id) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -366,7 +366,10 @@
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        <a href="{{ route('psycho.users.delete', getCookies() ) }}"
+                        @php 
+                        $userDelete = idcookies(); 
+                        @endphp
+                        <a href="{{ route('psycho.users.delete', $userDelete ) }}"
                             class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Eliminar</a>
                         <button type="button"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
