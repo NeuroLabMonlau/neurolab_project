@@ -42,9 +42,7 @@
                 <div class="flex w-14 justify-center items-center mr-2 p-1">
                     <a href="{{ route('dashboard') }}" class="text-xl font-bold "><svg class="fill-zinc-400 hover:fill-red-500 hover:-translate-y-1 active:translate-y-1 hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="34" viewBox="0 -960 960 960" width="34"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg></a>
                 </div>
-        
-                <x-help-button></x-help-button>
-                
+                        
             </div>
          
         

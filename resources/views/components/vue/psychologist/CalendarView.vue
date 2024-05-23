@@ -33,12 +33,16 @@ export default defineComponent({
             this.$data.showModal = true
             this.setModalOpen(arg)
         },
+        closeModal() {
+            this.$data.showModal = false
+        },
         setModalOpen(obj) {
-            const dateAndTime = obj.dateStr.split('T')
+            let dateAndTime = obj.dateStr.split('T')
 
-            this.$data.newEvent.date_at = dateAndTime[0]
-            this.$data.newEvent.hour = dateAndTime[1].substr(0, 8)
-            this.$data.newEvent.user_id = this.$props.user.id
+            this.newEvent.date_at = dateAndTime[0]
+            this.newEvent.hour = dateAndTime[1].substr(0, 8)
+            this.newEvent.user_id = this.$props.user.id
+            return
         }
     }
 
