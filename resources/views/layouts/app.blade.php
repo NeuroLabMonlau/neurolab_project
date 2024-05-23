@@ -26,7 +26,7 @@
 
 <body class="font-sans antialiased ">
 
-    <div class="min-h-screen bg-gray-100 flex flex-col studentBg">
+    <div class="min-h-screen bg-gray-100 flex flex-col @if(Auth::user()->role_id == 3) studentBg @endif">
         @livewire('navigation-menu')
 
         <div class="flex-1 flex ">
