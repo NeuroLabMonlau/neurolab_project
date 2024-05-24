@@ -95,10 +95,14 @@ class User extends Authenticatable
      public function isAdmin(): bool
 
      {
- 
+
          // Verifica si el usuario tiene un rol de administrador
- 
+
          return $this->role->name === 'admin';
- 
+
+     }
+
+     public function appointment() {
+        return $this->hasOne('App\Models\Appointment');
      }
 }

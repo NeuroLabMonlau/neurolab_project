@@ -3,6 +3,7 @@
 // use App\Http\Middleware\isAdmin;
 // use App\Http\Middleware\isStudent;
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\Psycho\GamesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -73,6 +74,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
         // Rutas de calendario
         Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');
+        Route::resource('appointment', AppointmentController::class);
+
 
         // Rutas Juegos
         Route::get('/games', [GamesController::class, 'index'])->name('psycho.games.index');
@@ -115,7 +118,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/games/assign-course/{id}', [AssignController::class, 'assignGamesCourseIndex'])->name('psycho.games.assign-course.index');
         Route::post('/games/assign-course/{course_id}/{test_id}', [AssignController::class, 'assignGamesCourse'])->name('psycho.games.assign-course.store');
     });
-    
+
 });
 
 
