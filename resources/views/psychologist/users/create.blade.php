@@ -118,7 +118,7 @@
                         <label for="cip" class="text-gray-600">CIP</label>
                         <input type="text" name="cip" id="cip"
                             class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen"
-                            value="{{ $student->cip }}" placeholder="{{ $student->cip }}">
+                            >
                     </div>
                     <div class="flex flex-col space-y-4">
                         <label for="date_of_birth" class="text-gray-600">Fecha de Nacimiento</label>
