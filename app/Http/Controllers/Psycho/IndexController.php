@@ -143,6 +143,7 @@ class IndexController extends Controller
     public function edituser(Request $request)
     {
         $user_id = $request['id'];
+        error_log($user_id);
         $user = $this->user->find($user_id);
         if ($user->role_id === 3) {
             $student = $this->student->where('user_id', $user_id)->first();
@@ -170,7 +171,8 @@ class IndexController extends Controller
     public function deleteuser(Request $request)
     {
         try {
-        $user_id = $request['id'];
+        $user_id = idcookies();
+        error_log($user_id);
         $user = $this->user->find($user_id);
         if ($user->role_id === 3) {
             $student = $this->student->where('user_id', $user_id)->first();

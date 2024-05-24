@@ -1,10 +1,10 @@
 <x-app-layout>
-    @php
-        if(isset($_COOKIE['userDel'])) {
-            $_COOKIE['userDel'];
-        }
-        
-    @endphp
+@php
+if (!isset($_COOKIE["userDel"])) {
+    
+    setcookie("userDel", "0", time() + 600, "/psychologist/users");
+}
+@endphp
 
     @if (session('error'))
         <div class="bg-red-500 text-white p-4 rounded-lg text-center mb-4">
@@ -371,7 +371,7 @@
                         </div>
                     </div>
                     <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                        @php 
+                        @php    
                         $userDelete = idcookies(); 
                         @endphp
                         <a href="{{ route('psycho.users.delete', $userDelete ) }}"
@@ -391,10 +391,13 @@
     userDel = null;
 
     function openModal(userId1) {
-        // Show the modal by adding a CSS class
-        document.getElementById('modal').classList.remove('hidden');
         userDel = userId1;
         document.cookie = "userDel=" + userDel;
+        document.cookie = "userDel=" + userDel;
+        document.cookie = "userDel=" + userDel;
+        document.getElementById('modal').classList.remove('hidden');
+        
+        
     }
 
     // Close modal
