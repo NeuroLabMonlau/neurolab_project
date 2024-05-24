@@ -82,6 +82,11 @@ class User extends Authenticatable
         return $this->hasOne(Student::class);
     }
 
+    public function docent()
+    {
+        return $this->hasOne(Docent::class);
+    }
+
       /**
 
      * Determina si el usuario es un administrador.

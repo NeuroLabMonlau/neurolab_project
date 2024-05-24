@@ -45,7 +45,31 @@
                 
             </div>
          
-        
+         <div>
+        <ul>
+            {{-- <li>
+                <a href="{{ route('profile.show') }}"
+                    class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <span class="flex-1 ms-3 whitespace-nowrap">{{ Auth::user()->username }}</span>
+                </a>
+            </li> --}}
+    
+            {{-- <div class="border-t border-gray-200"></div> --}}
+    
+            <li>
+                <form method="POST" action="{{ route('logout') }}" x-data>
+                    @csrf
+                    <a href="{{ route('profile.show') }}"
+                        class="flex items-center p-2 text-black rounded-lg dark:text-white hover:bg-zinc-50 hover:text-black dark:hover:bg-gray-700 group">
+                        <span class="flex-1 ms-3 whitespace-nowrap" href="{{ route('logout') }}"
+                            @click.prevent="$root.submit();">
+                            {{ __('Log Out') }}
+                        </span>
+                    </a>
+                </form>
+            </li>
+        </ul>
+    </div>
         
             <div class="w-2/6 flex justify-end items-center drop-shadow-xl">
                 <div class=" sm:flex sm:items-center sm:ms-6">
@@ -84,7 +108,7 @@
                                 <span class="flex-1 ms-3 whitespace-nowrap">{{ Auth::user()->username }}</span>
                             </div> --}}
         
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link href="{{ route('student.profile') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
         

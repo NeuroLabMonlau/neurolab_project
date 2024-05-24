@@ -52,30 +52,33 @@
                         <!-- Account Management -->
                         {{-- <div class="block px-4 py-2 text-xs text-gray-400">
                             <span class="flex-1 ms-3 whitespace-nowrap">{{ Auth::user()->username }}</span>
-            </div> --}}
 
-            <x-dropdown-link href="{{ route('profile.show') }}">
-                {{ __('Profile') }}
-            </x-dropdown-link>
-
-            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-            <x-dropdown-link href="{{ route('api-tokens.index') }}">
-                {{ __('API Tokens') }}
-            </x-dropdown-link>
-            @endif
-
-            <div class="border-t border-gray-200"></div>
-
-            <!-- Authentication -->
-            <form method="POST" action="{{ route('logout') }}" x-data>
-                @csrf
-
-                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
-                    {{ __('Log Out') }}
-                </x-dropdown-link>
-            </form>
-            </x-slot>
-            </x-dropdown>
+                        </div> --}}
+    
+                        <x-dropdown-link href="{{ route('student.profile') }}">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+    
+                        @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
+                            <x-dropdown-link href="{{ route('api-tokens.index') }}">
+                                {{ __('API Tokens') }}
+                            </x-dropdown-link>
+                        @endif
+    
+                        <div class="border-t border-gray-200"></div>
+    
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}" x-data>
+                            @csrf
+    
+                            <x-dropdown-link href="{{ route('logout') }}"
+                                    @click.prevent="$root.submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                        </form>
+                    </x-slot>
+                </x-dropdown>
+            </div>
         </div>
 
     </div>

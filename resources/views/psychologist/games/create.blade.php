@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="flex flex-col gap-8 w-full h-full p-4">
+    <div class="flex flex-col gap-8 w-[90%] h-full p-4 mt-7 m-auto  rounded-lg bg-white shadow-2xl shadow-gray-200 z-20">
         @if(session('error'))
         <div class="bg-red-500 text-white p-4 rounded-lg text-center">
             {{ session('error') }}
@@ -35,16 +35,16 @@
                     </div>
                     
                     <div class="flex flex-col w-full gap-4">
-                        <div class="flex justify-center">
-                            <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-customGreen hover:text-blue-950 transition duration-300 ease-in-out">Crear</button>
+                        <div class="flex justify-start">
+                            <button type="submit" class="px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">Crear</button>
                         </div>
                     </div>
             </form>
         </div>
     </div>
-    <div>
-        <a href="{{ route('psycho.games.index') }}" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-customGreen hover:text-blue-950 transition duration-300 ease-in-out">Volver</a>
-        <a href="{{ route('psycho.games.games.index') }}" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-customGreen hover:text-blue-950 transition duration-300 ease-in-out">Ver Juegos</a>
+    <div class="mt-8 flex justify-between">
+        <a href="{{ route('psycho.games.index') }}" class="px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">Volver</a>
+        <a href="{{ route('psycho.games.games.index') }}" class="px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">Ver Juegos</a>
     </div>
     @if (session('success'))
     <livewire:custom-modal :wire:key="'custom-modal-'.time()">
