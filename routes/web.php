@@ -28,7 +28,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // admin routes
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/dashboard/users', [UserController::class, 'index'])->name('users');
-        Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
         Route::view('/dashboard/neurocrib', 'admin.neurocrib.index')->name('neurocrib');
         Route::view('/dashboard/seguimiento', 'admin.seguimiento.index')->name('seguimiento');
         Route::view('/dashboard/users', 'admin.users.index')->name('admin.users.index');
@@ -67,7 +67,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // psychologist routes
     Route::middleware('psychologist')->prefix('psychologist')->group(function () {
         
-        Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'psychologist.dashboard')->name('psycho.dashboard');
         Route::get('/users', [IndexController::class, 'index'])->name('psycho.users.index');
         Route::post('/users', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
         Route::post('/users/role', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');

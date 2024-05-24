@@ -21,12 +21,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if(Auth::user()->role_id == 1 && Auth::user()->role->role_type == 'admin') return redirect(RouteServiceProvider::ADMIN);
-                if(Auth::user()->role_id == 2 && Auth::user()->role->role_type == 'teacher') return redirect(RouteServiceProvider::TEACHER);
-                if(Auth::user()->role_id == 3 && Auth::user()->role->role_type == 'student') return redirect(RouteServiceProvider::STUDENT);
-                if(Auth::user()->role_id == 4 && Auth::user()->role->role_type == 'tutor') return redirect(RouteServiceProvider::TUTOR);
-                if(Auth::user()->role_id == 5 && Auth::user()->role->role_type == 'psychologist') return redirect(RouteServiceProvider::PSYCHOLOGIST);
-                return abort(403, 'Access denied. You must be an admin, teacher, student, tutor, or psychologist to view this page.');
+                return redirect()->route(Auth::user()->getRedirectRoute());
             }
         }
 

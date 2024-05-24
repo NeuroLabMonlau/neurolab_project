@@ -135,7 +135,7 @@
         <div class="flex justify-start ">
             {{-- Home --}}
             <div class="flex w-14 justify-center items-center p-1">
-              <a href="{{ route('dashboard') }}" class="text-xl font-bold hover:text-red-500 "><svg class="fill-zinc-700 hover:-translate-y-1 active:translate-y-1  hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
+              <a href="{{ route('psycho.dashboard') }}" class="text-xl font-bold hover:text-red-500 "><svg class="fill-zinc-700 hover:-translate-y-1 active:translate-y-1  hover:drop-shadow-xl transition" xmlns="http://www.w3.org/2000/svg" height="30" viewBox="0 -960 960 960" width="30"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
               
           </div>
           
