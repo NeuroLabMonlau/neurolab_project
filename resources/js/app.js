@@ -10,7 +10,7 @@ import CalendarView from "../views/components/vue/psychologist/CalendarView.vue"
 window.app = createApp({
     components: {
         // calendar,
-        minicalendar,
+        // minicalendar,
         // calendarcreate,
         Calendar,
         CalendarView,
