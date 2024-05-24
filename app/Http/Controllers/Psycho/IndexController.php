@@ -12,6 +12,8 @@ use App\Models\Student;
 use App\Models\Tutor;
 use App\Models\Docent;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Log;
+
 
 class IndexController extends Controller
 {
@@ -142,11 +144,27 @@ class IndexController extends Controller
     {
         $user_id = $request['id'];
         $user = $this->user->find($user_id);
-        $student = $this->student->where('user_id', $user_id)->first();
-        $course = $this->course->find($student->course_id);
-        $address = $this->address->where('id', $student->address_id)->first();
-        $courses = $this->course->all();
-        return view('psychologist.users.edit', compact('user', 'student', 'course', 'address', 'courses'));
+        if ($user->role_id === 3) {
+            $student = $this->student->where('user_id', $user_id)->first();
+            $course = $this->course->find($student->course_id);
+            $address = $this->address->where('id', $student->address_id)->first();
+            $courses = $this->course->all();
+            return view('psychologist.users.edit', compact('user', 'student', 'course', 'address', 'courses'));
+        } else {
+            if ($docent = $this->docent->where('user_id', $user_id)->first() === null) {
+                $docent = new Docent();
+                $docent->name = '';
+                $docent->lastname1 = '';
+                $docent->lastname2 = '';
+                $docent->email = '';
+                $docent->user_id = $user_id;
+                $docent->create_user = $request->authuser_id;
+                $docent->created_at = now();
+                $docent->save();
+            }
+            $docent = $this->docent->where('user_id', $user_id)->first();
+            return view('psychologist.users.edit', compact('user', 'docent'));
+        }
     }
 
     public function deleteuser(Request $request)
@@ -154,12 +172,18 @@ class IndexController extends Controller
         try {
         $user_id = $request['id'];
         $user = $this->user->find($user_id);
-        $student = $this->student->where('user_id', $user_id)->first();
-        $address = $this->address->where('id', $student->address_id)->first();
-        $course = $this->course->find($student->course_id);
-        $user->delete();
-        $student->delete();
-        $address->delete();
+        if ($user->role_id === 3) {
+            $student = $this->student->where('user_id', $user_id)->first();
+            $address = $this->address->where('id', $student->address_id)->first();
+            $course = $this->course->find($student->course_id);
+            $user->delete();
+            $student->delete();
+            $address->delete();
+        } else {
+            $docent = $this->docent->where('user_id', $user_id)->first();
+            $user->delete();
+            $docent->delete();
+        }
             return back()->with('success', 'Usuario eliminado correctamente');
         } catch (\Exception $e) {
             return back()->with('error', 'Error al eliminar el usuario: ' . $e->getMessage());
@@ -182,6 +206,7 @@ class IndexController extends Controller
             'last_name2' => 'nullable|string|max:255',
             'idalu' => 'required|string|max:255',
             'dni_nif' => 'required|string|max:255',
+            'cip' => 'nullable|string|max:255',
             'date_of_birth' => 'required|date',
             'email' => 'required|email|max:255',
             'public_road' => 'required|string|max:255',
@@ -190,27 +215,60 @@ class IndexController extends Controller
             'country' => 'required|string|max:255',
             'municipality' => 'required|string|max:255',
             'address_id' => 'required|integer',
-            'course_id' => 'required|integer'
+            'course_id' => 'required|integer',
+            'password' => 'nullable|string|max:255',
+            'password_confirmation' => 'nullable|string|max:255',
+
         ]);
 
         try {
-            $student = Student::find($request->student_id);
-            $student->name = $request->name;
-            $student->last_name = $request->last_name;
-            $student->last_name2 = $request->last_name2;
-            $student->idalu = $request->idalu;
-            $student->dni_nif = $request->dni_nif;
-            $student->date_of_birth = $request->date_of_birth;
-            $student->email = $request->email;
-            $student->save();
 
-            $address = Address::find($request->address_id);
-            $address->public_road = $request->public_road;
-            $address->cp = $request->cp;
-            $address->province = $request->province;
-            $address->country = $request->country;
-            $address->municipality = $request->municipality;
-            $address->save();
+            $user = User::find($request->user_id);
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->update_user = $request->authuser_id;
+            $user->updated_at = now();
+            if ($request->password !== null) {
+                if ($request->password !== $request->password_confirmation) {
+                    return back()->with('error', 'Las contraseñas no coinciden');
+                } else {
+                    $user->password = bcrypt($request->password);
+                }
+            }
+            if ($request->role === '3') {
+                $student = Student::find($request->student_id);
+                $student->name = $request->name;
+                $student->last_name = $request->last_name;
+                $student->last_name2 = $request->last_name2;
+                $student->idalu = $request->idalu;
+                $student->dni_nif = $request->dni_nif;
+                $student->cip = $request->cip;
+                $student->date_of_birth = $request->date_of_birth;
+                $student->email = $request->email2;
+                $student->course_id = $request->course_id;
+                $student->update_user = $request->authuser_id;
+                $student->updated_at = now();
+                $student->save();
+
+                $address = Address::find($request->address_id);
+                $address->public_road = $request->public_road;
+                $address->cp = $request->cp;
+                $address->province = $request->province;
+                $address->country = $request->country;
+                $address->municipality = $request->municipality;
+                $address->updated_at = now();
+                $address->save();
+            } else {
+                $docent = Docent::find($request->docent_id);
+                $docent->name = $request->name;
+                $docent->lastname1 = $request->last_name;
+                $docent->lastname2 = $request->last_name2;
+                $docent->email = $request->email;
+                $docent->update_user = $request->authuser_id;
+                $docent->updated_at = now();
+                $docent->save();
+            }
+
 
             return back()->with('success', 'Usuario actualizado correctamente');
         } catch (\Exception $e) {
@@ -230,22 +288,25 @@ class IndexController extends Controller
 
     public function createuser(Request $request) {
         $request->validate([
-            'username' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'username' => 'nullable|string|max:255',
+            'name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'last_name2' => 'nullable|string|max:255',
-            'idalu' => 'required|string|max:255',
-            'dni_nif' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'email' => 'required|email|max:255',
-            'public_road' => 'required|string|max:255',
-            'cp' => 'required|string|max:10',
-            'province' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'municipality' => 'required|string|max:255',
-            'course_id' => 'required|integer',
-            'role_id' => 'required|integer',
-            'tutor_id' => 'required|integer'
+            'name1' => 'nullable|string|max:255',
+            'lastname1' => 'nullable|string|max:255',
+            'lastname2' => 'nullable|string|max:255',
+            'email1' => 'nullable|email|max:255',
+            'email2' => 'nullable|email|max:255',
+            'idalu' => 'nullable|string|max:255',
+            'dni_nif' => 'nullable|string|max:255',
+            'date_of_birth' => 'nullable|date',
+            'email' => 'nullable|email|max:255',
+            'public_road' => 'nullable|string|max:255',
+            'cp' => 'nullable|string|max:10',
+            'province' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'municipality' => 'nullable|string|max:255',
+            'course_id' => 'nullable|integer',
         ]);
 
         try {
@@ -253,17 +314,20 @@ class IndexController extends Controller
             $user = new User();
             $user->username = $request->username;
             $user->email = $request->email;
-            $user->role_id = $request->role_id;
+            $user->role_id = $request->role;
             $user->password = bcrypt('12345678');
+            $user->creation_user = $request->authuser_id;
+            $user->created_at = now();
             $user->save();
-
-            if ($request->role_id == 3) {
+            error_log($request->role);
+            if ($request->role === '3') {
             $address = new Address();
             $address->public_road = $request->public_road;
             $address->cp = $request->cp;
             $address->province = $request->province;
             $address->country = $request->country;
             $address->municipality = $request->municipality;
+            $address->created_at = now();
             $address->save();
 
             $student = new Student();
@@ -273,28 +337,33 @@ class IndexController extends Controller
             $student->last_name2 = $request->last_name2;
             $student->idalu = $request->idalu;
             $student->dni_nif = $request->dni_nif;
+            $student->cip = $request->cip;
             $student->date_of_birth = $request->date_of_birth;
-            $student->email = $request->email;
+            $student->email = $request->email2;
             $student->course_id = $request->course_id;
             $student->address_id = $address->id;
+            $student->create_user = $request->authuser_id;
+            $student->created_at = now();
             $student->save();
             } else {
                 $docent = new Docent();
                 $docent->user_id = $user->id;
-                $docent->name = $request->name;
-                $docent->lastname1 = $request->last_name;
-                $docent->lastname2 = $request->last_name2;
-                $docent->email = $request->email;
+                $docent->name = $request->name1;
+                $docent->lastname1 = $request->lastname1;
+                $docent->lastname2 = $request->lastname1;
+                $docent->email = $request->email1;
+                $docent->create_user = $request->authuser_id;
+                $docent->created_at = now();
                 $docent->save();
             }
-
-            
 
            
 
             return back()->with('success', 'Usuario creado correctamente');
         } catch (\Exception $e) {
-            return back()->with('error', 'Error al crear el usuario');
+            error_log($e->getMessage());
+            log::error('Erro M: ' . $e->getMessage());
+            return back()->with('error', 'Error al crear el usuario: ' . $e->getMessage());
         }
     }
 

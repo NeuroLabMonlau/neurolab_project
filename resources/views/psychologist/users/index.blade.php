@@ -1,5 +1,10 @@
 <x-app-layout>
-    
+    @php
+        if(isset($_COOKIE['userDel'])) {
+            $_COOKIE['userDel'];
+        }
+        
+    @endphp
 
     @if (session('error'))
         <div class="bg-red-500 text-white p-4 rounded-lg text-center mb-4">
