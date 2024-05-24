@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Psycho\IndexController;
 use App\Http\Controllers\Psycho\AssignController;
+use App\Http\Controllers\Students\PlayGamesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +47,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
         Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
         Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
+
+        Route::get('/dashboard/games', [PlayGamesController::class, 'index'])->name('student.games.index');
+        Route::get('/dashboard/games/play/{student_id}/{gameTest_id}', [PlayGamesController::class, 'play'])->name('student.games.play');
     });
 
     // teacher routes

@@ -13,9 +13,15 @@ class ApiController extends Controller
 {
     public function index()
     {
-        $games = GameTest::with(['game', 'category'])->get();
-        return response()->json($games);
+        $games = GameTest::with(['game'])->get();
+    
+        $response = [
+            'games' => $games,
+        ];
+    
+        return response()->json($response);
     }
+    
 
     public function store(Request $request)
     {

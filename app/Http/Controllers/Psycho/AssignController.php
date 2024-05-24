@@ -31,6 +31,7 @@ class AssignController extends Controller
                 $gamesTestStudents->student_id = $student_id;
                 $gamesTestStudents->test_id = $test_id;
                 $gamesTestStudents->game_id = $testGame->game_id;
+                $gamesTestStudents->game_test_id = $testGame->id;
     
                 $gamesTestStudents->creation_user = auth()->user()->id;
                 $gamesTestStudents->update_user = auth()->user()->id;
@@ -62,6 +63,7 @@ class AssignController extends Controller
                     $gamesTestStudents->student_id = $student->id;
                     $gamesTestStudents->test_id = $test_id;
                     $gamesTestStudents->game_id = $testGame->game_id;
+                    $gamesTestStudents->game_test_id = $testGame->id;
         
                     $gamesTestStudents->creation_user = auth()->user()->id;
                     $gamesTestStudents->update_user = auth()->user()->id;
