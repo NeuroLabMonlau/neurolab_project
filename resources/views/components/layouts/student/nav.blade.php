@@ -108,7 +108,7 @@
                                 <span class="flex-1 ms-3 whitespace-nowrap">{{ Auth::user()->username }}</span>
                             </div> --}}
         
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link href="{{ route('student.profile') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
         
