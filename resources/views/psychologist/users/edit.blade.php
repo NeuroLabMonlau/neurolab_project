@@ -70,7 +70,7 @@
             <h1 class="text-3xl font-bold text-center text-black">Editar Usuario</h1>
             <div class="flex flex-col space-y-4">
                 <label for="username" class="text-gray-600">Nombre de Usuario</label>
-                <input type="text" name="username" id="username" va
+                <input type="text" name="username" id="username"
                     class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-blue-500"
                     value="{{ $user->username }}" placeholder="{{ $user->username }}">
             </div>
@@ -183,13 +183,13 @@
                         placeholder="{{ $address->country }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
-                <input type="number" name="user_id" id="user_id" value="{{ $student->user_id }}" hidden>
+                
                 <input type="number" name="authuser_id" id="authuser_id" value="{{ auth()->user()->id }}" hidden>
                 <input type="number" name="address_id" id="address_id" value="{{ $address->id }}" hidden>
                 <input type="number" name="student_id" id="student_id" value="{{ $student->id }}" hidden>
             @else
                 <div class="flex flex-col space-y-4">
-                    <label for="name" class="text-gray-600">Nombre</label>
+                    <label for="name1" class="text-gray-600">Nombre</label>
                     <input type="text" name="name1" id="name1" value="{{ $docent->name }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
@@ -208,7 +208,10 @@
                     <input type="email" name="email1" id="email1" value="{{ $docent->email }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
+                
             @endif
+            <input type="number" name="user_id" id="user_id" value="{{ $user->id }}" hidden>
+            <input type="number" name="authuser_id" id="authuser_id" value="{{ auth()->user()->id }}" hidden>
             <div class="flex justify-between">
                 <button type="submit"
                     class="w-1/2 px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">

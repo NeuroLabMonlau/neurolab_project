@@ -202,24 +202,28 @@ class IndexController extends Controller
     public function updateUser(Request $request)
     {
         $request->validate([
-            'user_id' => 'required|integer',
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'username' => 'nullable|string|max:255',
+            'user_id' => 'nullable|integer',
+            'name' => 'nullable|string|max:255',
+            'last_name' => 'nullable|string|max:255',
             'last_name2' => 'nullable|string|max:255',
-            'idalu' => 'required|string|max:255',
-            'dni_nif' => 'required|string|max:255',
+            'idalu' => 'nullable|string|max:255',
+            'dni_nif' => 'nullable|string|max:255',
             'cip' => 'nullable|string|max:255',
-            'date_of_birth' => 'required|date',
-            'email' => 'required|email|max:255',
-            'public_road' => 'required|string|max:255',
-            'cp' => 'required|string|max:10',
-            'province' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
-            'municipality' => 'required|string|max:255',
-            'address_id' => 'required|integer',
-            'course_id' => 'required|integer',
+            'date_of_birth' => 'nullable|date',
+            'email' => 'nullable|email|max:255',
+            'public_road' => 'nullable|string|max:255',
+            'cp' => 'nullable|string|max:10',
+            'province' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
+            'municipality' => 'nullable|string|max:255',
+            'address_id' => 'nullable|integer',
+            'course_id' => 'nullable|integer',
             'password' => 'nullable|string|max:255',
             'password_confirmation' => 'nullable|string|max:255',
+            'name1' => 'nullable|string|max:255',
+            'lastname1' => 'nullable|string|max:255',
+            'lastname2' => 'nullable|string|max:255',
 
         ]);
 
@@ -262,10 +266,10 @@ class IndexController extends Controller
                 $address->save();
             } else {
                 $docent = Docent::find($request->docent_id);
-                $docent->name = $request->name;
-                $docent->lastname1 = $request->last_name;
-                $docent->lastname2 = $request->last_name2;
-                $docent->email = $request->email;
+                $docent->name = $request->name1;
+                $docent->lastname1 = $request->lastname1;
+                $docent->lastname2 = $request->lastname2;
+                $docent->email = $request->email1;
                 $docent->update_user = $request->authuser_id;
                 $docent->updated_at = now();
                 $docent->save();
@@ -352,7 +356,7 @@ class IndexController extends Controller
                 $docent->user_id = $user->id;
                 $docent->name = $request->name1;
                 $docent->lastname1 = $request->lastname1;
-                $docent->lastname2 = $request->lastname1;
+                $docent->lastname2 = $request->lastname2;
                 $docent->email = $request->email1;
                 $docent->create_user = $request->authuser_id;
                 $docent->created_at = now();
