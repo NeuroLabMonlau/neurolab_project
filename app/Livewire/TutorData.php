@@ -16,8 +16,9 @@ class TutorData extends Component
     public function getTutor()
     {
         $student_id = Student::where('user_id', auth()->user()->id)->first();
+        $tutors = StudentTutorTypeRelation::where('student_id', $student_id->id)->pluck('tutor_id')->toArray();
+        $tutor = Tutor::whereIn('id', $tutors)->get();
+        return $tutor;
 
-        // dd(Student::where('user_id', auth()->user()->id)->first()->idalu);
-        return  StudentTutorTypeRelation::where('id', $student_id->tutor_id)->first();
     }
 }

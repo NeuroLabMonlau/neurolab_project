@@ -47,7 +47,7 @@
 
                     
                     <div class="text-center mt-8 text-sm">
-                        <p class="terms_link font-semibold">Al continuar, estás aceptando los  <a href="" class="underline decoration-solid">Terminos y condiciones</a> y la <a href="" class="text-red-500 font-bold">politca de privacidad</a> de NeuraCrib</p>
+                        <p class="terms_link font-semibold">Al continuar, estás aceptando los  <a href="" class="underline decoration-solid">Terminos y condiciones</a> y la <a href="" class="text-red-500 font-bold">politca de privacidad</a> de Meraki</p>
                     </div>
             </form>
         </div>

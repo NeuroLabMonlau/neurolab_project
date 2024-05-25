@@ -11,8 +11,10 @@ use App\Models\Role;
 use App\Models\Student;
 use App\Models\Tutor;
 use App\Models\Docent;
+use App\Models\StudentTutorTypeRelation;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 
 class IndexController extends Controller
@@ -24,8 +26,9 @@ class IndexController extends Controller
     protected $tutor;
     protected $address;
     protected $docent;
+    protected $studentTutorTypeRelation;
 
-    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor, Address $address, Docent $docent)
+    public function __construct(Role $role, Course $course, User $user, Student $student, Tutor $tutor, Address $address, Docent $docent, StudentTutorTypeRelation $studentTutorTypeRelation)
     {
         $this->role = $role;
         $this->course = $course;
@@ -34,6 +37,7 @@ class IndexController extends Controller
         $this->tutor = $tutor;
         $this->address = $address;
         $this->docent = $docent;
+        $this->studentTutorTypeRelation = $studentTutorTypeRelation;
     }
 
     public function index()
@@ -150,7 +154,9 @@ class IndexController extends Controller
             $course = $this->course->find($student->course_id);
             $address = $this->address->where('id', $student->address_id)->first();
             $courses = $this->course->all();
-            return view('psychologist.users.edit', compact('user', 'student', 'course', 'address', 'courses'));
+            $tutors_ids = StudentTutorTypeRelation::where('student_id', $student->id)->pluck('tutor_id')->toArray();
+            $tutors = Tutor::whereIn('id', $tutors_ids)->get();
+            return view('psychologist.users.edit', compact('user', 'student', 'course', 'address', 'courses', 'tutors'));
         } else {
             if ($docent = $this->docent->where('user_id', $user_id)->first() === null) {
                 $docent = new Docent();
@@ -238,10 +244,11 @@ class IndexController extends Controller
                 if ($request->password !== $request->password_confirmation) {
                     return back()->with('error', 'Las contraseñas no coinciden');
                 } else {
-                    $user->password = bcrypt($request->password);
+                    $user->password = Hash::make($request->password);
                 }
             }
-            if ($request->role === '3') {
+            $user->save();
+            if ($request->role_id == 3) {
                 $student = Student::find($request->student_id);
                 $student->name = $request->name;
                 $student->last_name = $request->last_name;
@@ -266,7 +273,7 @@ class IndexController extends Controller
                 $address->save();
             } else {
                 $docent = Docent::find($request->docent_id);
-                $docent->name = $request->name1;
+                $docent->name = $request->name12;
                 $docent->lastname1 = $request->lastname1;
                 $docent->lastname2 = $request->lastname2;
                 $docent->email = $request->email1;
@@ -321,7 +328,7 @@ class IndexController extends Controller
             $user->username = $request->username;
             $user->email = $request->email;
             $user->role_id = $request->role;
-            $user->password = bcrypt('12345678');
+            $user->password = Hash::make($request->password);
             $user->creation_user = $request->authuser_id;
             $user->created_at = now();
             $user->save();
@@ -382,6 +389,7 @@ class IndexController extends Controller
         $users = $this->user->all();
         $addresses = $this->address->all();
         $docents = $this->docent->all();
+        $studentTutorTypeRelation = $this->studentTutorTypeRelation->all();
 
         return [
             'roles' => $roles,
@@ -390,7 +398,8 @@ class IndexController extends Controller
             'tutors' => $tutors,
             'users' => $users,
             'addresses' => $addresses,
-            'docents' => $docents
+            'docents' => $docents,
+            'studentTutorTypeRelation' => $studentTutorTypeRelation
         ];
     }
 }

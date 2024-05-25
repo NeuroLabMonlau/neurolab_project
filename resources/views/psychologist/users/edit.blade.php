@@ -20,7 +20,7 @@
     @if (!session('edit'))
         <div class="flex flex-col justify-center">
 
-            <div class=" bg-white mx-auto w-full h-full max-w-xl p-8 mt-10 mb-18 border border-green-400 ">
+            <div class=" bg-white mx-auto w-full h-full max-w-xl p-8 mt-10 mb-12 border border-green-400 ">
                 <div class="flex flex-row-reverse justify-center items-center space-x-10">
                     <a href="{{ route('psycho.users.enabledit', $user->id) }}"
                         class="text-xl text-black py-2 px-4 rounded">
@@ -47,21 +47,52 @@
                 <p class=" mb-2 text-black">CALLE: {{ $address->public_road }}</p>
                 <p class=" mb-2 text-black">CP: {{ $address->cp }}</p>
                 <p class=" mb-2 text-black">PROVINCIA: {{ $address->province }}</p>
-            @else
+                @else
                 <h1 class="text-3xl font-bold text-center  text-black">{{ $docent->name }}
                     {{ $docent->lastname1 }} {{ $docent->lastname2 }}</h1>
-            </div>
-            <div class="flex justify-center">
+                </div>
+                <div class="flex justify-center">
                 <img class=" mt-5 w-48 h-48 rounded-full" src="{{ $user->profile_photo_url }}"
                     alt="{{ $user->username }}" />
+                </div>
+                <h1 class="text-3xl font-bold mt-6 mb-2 text-black">Información contacto</h1>
+                <p class=" mb-2 text-black">USERNAME: {{ $user->username }}</p>
+                <p class=" mb-2 text-black">EMAIL: {{ $docent->email }}</p>
+                @endif
             </div>
-            <h1 class="text-3xl font-bold mt-6 mb-2 text-black">Información contacto</h1>
-            <p class=" mb-2 text-black">USERNAME: {{ $user->username }}</p>
-            <p class=" mb-2 text-black">EMAIL: {{ $docent->email }}</p>
-    @endif
-    </div>
-    </div>
-@elseif (session('edit'))
+
+            @if ($user->role_id == 3)
+            
+                @foreach ($tutors as $tutor)
+                    <div
+                        class=" bg-white mx-auto w-full h-full max-w-xl p-8 mb-4 border border-green-400">
+                        <h1 class="text-3xl font-bold mb-2 text-black">Información del Tutor</h1>
+                        <p class=" mb-2 text-black">Nombre: {{ $tutor->name }}</p>
+                        <p class=" mb-2 text-black">Apellido: {{ $tutor->last_name }}</p>
+                        @php
+                            $emails = explode(';', $tutor->email);
+                        @endphp
+                
+                        @if (count($emails) > 1)
+                            @foreach ($emails as $email)
+                                <p class="mb-2 text-black">Tutor Email: {{ $email }}</p>
+                            @endforeach
+                        @else
+                            <p class="mb-2 text-black">Tutor Email: {{ $tutor->email }}</p>
+                        @endif
+                        <p class=" mb-2 text-black">Tutor Telefono: {{ $tutor->phone_number }}</p>
+                
+                    </div>
+                @endforeach
+                 
+            @endif
+
+
+
+
+
+        </div>
+    @elseif (session('edit'))
     <x-validation-errors class="mb-4" />
     <form method="post" action="{{ route('psycho.users.updateuser', $user->id) }}" class="w-full max-w-2xl mx-auto">
         @csrf
@@ -183,35 +214,40 @@
                         placeholder="{{ $address->country }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
-                
+
                 <input type="number" name="authuser_id" id="authuser_id" value="{{ auth()->user()->id }}" hidden>
                 <input type="number" name="address_id" id="address_id" value="{{ $address->id }}" hidden>
                 <input type="number" name="student_id" id="student_id" value="{{ $student->id }}" hidden>
             @else
                 <div class="flex flex-col space-y-4">
-                    <label for="name1" class="text-gray-600">Nombre</label>
-                    <input type="text" name="name1" id="name1" value="{{ $docent->name }}"
+                    <label for="name12" class="text-gray-600">Nombre</label>
+                    <input type="text" name="name12" id="name12" value="{{ $docent->name }}"
+                        placeholder="{{ $docent->name }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
                 <div class="flex flex-col space-y-4">
                     <label for="lastname1" class="text-gray-600">Primer Apellido</label>
                     <input type="text" name="lastname1" id="lastname1" value="{{ $docent->lastname1 }}"
+                        placeholder="{{ $docent->lastname1 }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
                 <div class="flex flex-col space-y-4">
                     <label for="lastname2" class="text-gray-600">Segundo Apellido</label>
                     <input type="text" name="lastname2" id="lastname2" value="{{ $docent->lastname2 }}"
+                        placeholder="{{ $docent->lastname2 }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
                 <div class="flex flex-col space-y-4">
                     <label for="email1" class="text-gray-600">Email</label>
                     <input type="email" name="email1" id="email1" value="{{ $docent->email }}"
+                        placeholder="{{ $docent->email }}"
                         class="border border-gray-300 rounded-md p-2 focus:outline-none focus:border-customGreen">
                 </div>
-                
+                <input type="number" name="docent_id" id="docent_id" value="{{ $docent->id }}" hidden>
             @endif
             <input type="number" name="user_id" id="user_id" value="{{ $user->id }}" hidden>
             <input type="number" name="authuser_id" id="authuser_id" value="{{ auth()->user()->id }}" hidden>
+            <input type="number" name="role_id" id="role_id" value="{{ $user->role_id }}" hidden>
             <div class="flex justify-between">
                 <button type="submit"
                     class="w-1/2 px-4 py-2 bg-zinc-300 text-black rounded-md hover:bg-teal-200 hover:text-indigo-700 transition duration-300 ease-in-out">
