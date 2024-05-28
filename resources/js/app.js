@@ -6,6 +6,8 @@ import { createApp } from "vue";
 // import calendarcreate from "../views/components/vue/psychologist/calendarcreate.vue";
 import Calendar from "../views/components/vue/psychologist/Calendar.vue";
 import CalendarView from "../views/components/vue/psychologist/CalendarView.vue";
+import { InertiaApp } from "@inertiajs/inertia-vue3";
+import PortalVue from "portal-vue";
 
 window.app = createApp({
     components: {
@@ -14,8 +16,23 @@ window.app = createApp({
         // calendarcreate,
         Calendar,
         CalendarView,
+        PortalVue,
     },
 }).mount("#app");
+
+window.eventBus = new Vue();
+
+new Vue({
+    render: (h) =>
+        h(InertiaApp, {
+            props: {
+                initialPage: JSON.parse(app.dataset.page),
+                resolveComponent: (name) =>
+                    require(`../views/components/vue/psychologist/${name}`)
+                        .default,
+            },
+        }),
+}).$mount(app);
 
 // const searchInput = document.getElementById('searchInput');
 // searchInput.addEventListener("input", restartTimer, false);

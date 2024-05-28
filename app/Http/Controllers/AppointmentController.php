@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Appointment as AppointmentResource;
 
 class AppointmentController extends Controller
 {
@@ -13,7 +13,8 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $events = Appointment::all();
+        return response()->json(AppointmentResource::collection($events));
     }
 
     /**
@@ -38,7 +39,6 @@ class AppointmentController extends Controller
         ]);
 
         return redirect()->back()->with('message', 'Reservado con éxito');
-        // dd($request->all());
     }
 
     /**

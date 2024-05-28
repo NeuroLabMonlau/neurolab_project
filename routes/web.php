@@ -75,6 +75,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         // Rutas de calendario
         Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');
         Route::post('/appointment', AppointmentController::class);
+        Route::get('/appointment/index', AppointmentController::class, 'index');
 
 
         // Rutas Juegos

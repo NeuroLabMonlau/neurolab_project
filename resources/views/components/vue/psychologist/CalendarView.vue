@@ -38,6 +38,15 @@ export default defineComponent({
         closeModal() {
             this.$data.showModal = false;
         },
+        resetModal() {
+            this.newEvent = {
+                title: "",
+                date_at: "",
+                hour: "",
+                user_id: "",
+                session: 1800,
+            };
+        },
         setModalOpen(obj) {
             let dateAndTime = obj.dateStr.split("T");
 
@@ -58,6 +67,8 @@ export default defineComponent({
                 onSuccess: (page) => {
                     if (Object.entries(page.props.errors).length === 0) {
                         this.closeModal();
+                        this.resetModal();
+                        useEventBus.$emit("refreshCalendar");
                     }
                 },
             });

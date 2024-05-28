@@ -1,11 +1,11 @@
 <script>
-import { defineComponent } from 'vue'
-import FullCalendar from '@fullcalendar/vue3'
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid'
-import interactionPlugin from '@fullcalendar/interaction'
-import { INITIAL_EVENTS, createEventId } from '../../../../js/event-utils'
-
+import { defineComponent } from "vue";
+import FullCalendar from "@fullcalendar/vue3";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import { INITIAL_EVENTS } from "../../../../js/event-utils";
+import axios from "axios";
 
 export default defineComponent({
     components: {
@@ -14,44 +14,62 @@ export default defineComponent({
     data() {
         return {
             calendarOptions: {
-                plugins: [
-                    dayGridPlugin,
-                    timeGridPlugin,
-                    interactionPlugin
-                ],
+                plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
                 headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    left: "prev,next today",
+                    center: "title",
+                    right: "dayGridMonth,timeGridWeek,timeGridDay",
                 },
-                initialView: 'dayGridMonth',
-                initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+                initialView: "dayGridMonth",
                 selectable: true,
                 selectMirror: true,
                 dayMaxEvents: true,
                 eventsSet: this.handleEvents,
-                dateClick: this.handleDateClick
+                dateClick: this.handleDateClick,
             },
             currentEvents: [],
-        }
+        };
+    },
+    beforeMount() {
+        axios
+            .get("/api/appointments")
+            .then((response) => {
+                console.log("response.data:", response.data);
+                this.$data.calendarOptions.events = response.data;
+            })
+            .catch((error) => {
+                console.log("error al recoger eventos:", error.message);
+            });
+        // this.$data.calendarOptions.events = axios.get("/api/appointments").
+        // {
+        //     url: "/api/appointments",
+        //     method: "GET",
+        //     failure: (error) => {
+        //         console.log("error al recoger eventos:", error.message);
+        //     },
+        // };
+    },
+    mounted() {
+        eventBus.$on("refreshCalendar", function () {
+            this.refreshCalendar();
+        });
     },
     methods: {
         handleEvents(events) {
-            this.currentEvents = events
+            this.currentEvents = events;
         },
-        handleDateClick(clickInfo){
-            this.$emit('dateClick', clickInfo)
-        }
-    }
-})
-
+        handleDateClick(clickInfo) {
+            this.$emit("dateClick", clickInfo);
+        },
+    },
+});
 </script>
 
 <template>
-    <div class='demo-app'>
-        <div class='demo-app-main'>
-            <FullCalendar class='demo-app-calendar' :options='calendarOptions'>
-                <template v-slot:eventContent='arg'>
+    <div class="demo-app">
+        <div class="demo-app-main">
+            <FullCalendar class="demo-app-calendar" :options="calendarOptions">
+                <template v-slot:eventContent="arg">
                     <b>{{ arg.timeText }}</b>
                     <i>{{ arg.event.title }}</i>
                 </template>

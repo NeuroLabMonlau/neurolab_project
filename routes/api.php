@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AppointmentController;
+use App\Livewire\AppointmentsCalendar;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +28,5 @@ Route::get('/games-parameters', [ApiController::class, 'getGamesParameters']);
 Route::get('/games-parameters/{game_id}/{level}', [ApiController::class, 'getGamesParametersByIdLevel']);
 
 
+//calendar
+Route::get('/appointments', [AppointmentController::class, 'index']);
