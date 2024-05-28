@@ -74,16 +74,18 @@ return [
     |
     */
 
-    'home' => function () {
-        if (Auth::check()) {
-            if (Auth::user()->role_id == 1 && Auth::user()->role->role_type == 'admin') return RouteServiceProvider::ADMIN;
-            if (Auth::user()->role_id == 2 && Auth::user()->role->role_type == 'teacher') return RouteServiceProvider::TEACHER;
-            if (Auth::user()->role_id == 3 && Auth::user()->role->role_type == 'student') return RouteServiceProvider::STUDENT;
-            if (Auth::user()->role_id == 4 && Auth::user()->role->role_type == 'tutor') return RouteServiceProvider::TUTOR;
-            if (Auth::user()->role_id == 5 && Auth::user()->role->role_type == 'psychologist') return RouteServiceProvider::PSYCHOLOGIST;
-        }
-        return '/';
-    },
+    // 'home' => function () {
+    //     if (Auth::check()) {
+    //         if (Auth::user()->role_id == 1 && Auth::user()->role->role_type == 'admin') return RouteServiceProvider::ADMIN;
+    //         if (Auth::user()->role_id == 2 && Auth::user()->role->role_type == 'teacher') return RouteServiceProvider::TEACHER;
+    //         if (Auth::user()->role_id == 3 && Auth::user()->role->role_type == 'student') return RouteServiceProvider::STUDENT;
+    //         if (Auth::user()->role_id == 4 && Auth::user()->role->role_type == 'tutor') return RouteServiceProvider::TUTOR;
+    //         if (Auth::user()->role_id == 5 && Auth::user()->role->role_type == 'psychologist') return RouteServiceProvider::PSYCHOLOGIST;
+    //     }
+    //     return '/';
+    // },
+
+    'home' => RouteServiceProvider::HOME,
     
 
     /*
