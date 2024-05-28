@@ -12,7 +12,7 @@
                             <div class="p-6">
                                 <h5 class="text-lg font-bold">Test: {{ $pendingTest->tests->test_name }}</h5>
                                 <p class="text-gray-700">Juego: {{ $pendingTest->games->name_game }}</p>
-                                <a href="{{ route('student.games.play', ['student_id' => $pendingTest->student_id, 'gameTest_id' => $pendingTest->gameTests->id]) }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Play</a>
+                                <a href="{{ route('student.games.play', ['student_id' => $pendingTest->student_id, 'gameTest_id' => $pendingTest->gameTests->id, 'test_id' => $pendingTest->test_id, 'game_id' => $pendingTest->game_id, 'level' => $pendingTest->gameTests->level]) }}" class="mt-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">Play</a>
                             </div>
                         </div>
                     @endforeach

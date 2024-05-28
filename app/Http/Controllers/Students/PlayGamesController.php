@@ -21,9 +21,9 @@ class PlayGamesController extends Controller
         return view('web.sections.student.games', ['pendingTests' => $pendingTests]);
     }
 
-    public function play($student_id, $gameTest_id) {
-
-       return redirect('https://neurolab.alumnes-monlau.com?id=' . $student_id . '&gameTest_id='. $gameTest_id);
+    public function play($student_id, $gameTest_id, $testId, $gameId, $level) {
+    //pasar student_id OK, game_test_id OK, test_id, game_id y level
+       return redirect('https://neurolab.alumnes-monlau.com?id=' . $student_id . '&gameTest_id='. $gameTest_id . '&test_id=' . $testId . '&game_id=' . $gameId . '&level=' . $level);
     }
 
 }
