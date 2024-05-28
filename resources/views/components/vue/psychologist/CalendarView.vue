@@ -53,9 +53,8 @@ export default defineComponent({
             }
 
             let dataAppt = this.setDurationSesion(param);
-            console.log("dataAppt: ", dataAppt);
 
-            Inertia.post(route("appointment.store"), dataAppt, {
+            Inertia.post("/psychologist/appointment", dataAppt, {
                 onSuccess: (page) => {
                     if (Object.entries(page.props.errors).length === 0) {
                         this.closeModal();
