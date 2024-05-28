@@ -156,6 +156,8 @@
                                     <option value="900">15 minutos</option>
                                     <option value="1800">30 minutos</option>
                                     <option value="3600">1 hora</option>
+                                    <option value="21600">6 horas</option>
+                                    <option value="43200">12 horas</option>
                                 </select>
                             </div>
                             <!-- end select -->
