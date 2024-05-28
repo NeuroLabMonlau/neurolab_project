@@ -49,7 +49,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
 
         Route::get('/dashboard/games', [PlayGamesController::class, 'index'])->name('student.games.index');
-        Route::get('/dashboard/games/play/{student_id}/{gameTest_id}', [PlayGamesController::class, 'play'])->name('student.games.play');
+        Route::get('/dashboard/games/play/{student_id}/{gameTest_id}/{test_id}/{game_id}/{level}', [PlayGamesController::class, 'play'])->name('student.games.play');
     });
 
     // teacher routes
