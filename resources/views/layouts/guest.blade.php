@@ -17,10 +17,16 @@
         <!-- Styles -->
         @livewireStyles
     </head>
-    <body class="Login-wallpaper h-screen flex flex-col">
+    <body class="Login-wallpaper h-screen flex flex-col ">
 
-        <div class="font-sans  text-gray-900 antialiased h-screen flex flex-col">
+        <div class="font-sans  text-gray-900 antialiased h-screen flex flex-col wrapper">
             {{ $slot }}
+             <!-- Black overlay for small screens -->
+            <div class="overlay">
+                <div class="overlay-message">
+                    Lo siento, la aplicación no es visible en pantallas más pequeñas.
+                </div>
+            </div>
         </div>
 
         @livewireScripts

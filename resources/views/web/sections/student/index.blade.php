@@ -1,5 +1,5 @@
 <x-app-layout class="">
-    
+    {{-- Dashboard alumno --}}
     <x-mary-header class="text-zinc-400/20 pt-20" title="Bienvenido de nuevo " size="text-3xl " with-anchor />
         <div class="flex justify-center items-center  w-[90%] h-[70%] ">
             <div class="flex flex-col justify-center items-center -mt-12 space-y-4 font-bold text-black w-60 text-2xl 2xl:w-96 2xl:text-5xl">
@@ -7,7 +7,7 @@
                 <button id="btn-student-dashboard" class="w-full py-2 rounded-xl sociogramBtn">Sociograma</button>
                 <div class="w-full py-2 rounded-xl flex flex-row">
                     <button id="btn-student-dashboard" class="w-full py-2 rounded-xl flex justify-center overflow-visible relative">
-                        Jugar! 
+                        A Jugar! 
                         
                         <img class="w-12 absolute right-0 -top-5" src="{{ asset('assets/img/Pebble.png') }}" alt="">
                     </button>
@@ -88,4 +88,4 @@
         {{-- <minicalendar /> --}}
     </div>
 </x-app-layout>
-{{-- {{ Auth::user()->username }} --}}
+{{-- {{ Auth::user()->username }} --}}                                             

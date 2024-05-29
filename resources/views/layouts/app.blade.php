@@ -22,12 +22,19 @@
 
     <!-- Styles -->
     @livewireStyles
+    
 </head>
 
 <body class="font-sans antialiased ">
 
-    <div class="min-h-screen bg-gray-100 flex flex-col @if(Auth::user()->role_id == 3) studentBg @endif">
+    <div class="min-h-screen bg-gray-100 flex flex-col @if(Auth::user()->role_id == 3) studentBg @endif wrapper">
         @livewire('navigation-menu')
+        <!-- Black overlay for small screens -->
+        <div class="overlay">
+            <div class="overlay-message">
+                Lo siento, la aplicación no es visible en pantallas más pequeñas.
+            </div>
+        </div>
 
         <div class="flex-1 flex ">
             @livewire('sidebar-component')
@@ -37,7 +44,9 @@
                 {{ $slot }}
             </main>
             
+            
         </div>
+         
     </div>
 
     @stack('modals')

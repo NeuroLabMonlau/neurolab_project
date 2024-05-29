@@ -58,3 +58,48 @@
     background-size: contain;
     background-repeat: no-repeat;
 }
+
+/* styles.css or your custom stylesheet */
+.wrapper {
+    position: relative;
+  }
+  
+  .content {
+    display: none; /* Hide content by default */
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.918); /* Black overlay with some transparency */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .overlay-message {
+    color: white;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  @media (min-width: 850px) {
+    .overlay {
+      display: none; /* Hide overlay for screens wider than 900px */
+    }
+  
+    .content {
+      display: block; /* Show content for screens wider than 900px */
+    }
+  }
+
+  @media (max-height: 500px) {
+    .overlay {
+        display: flex; /* Show overlay when viewport height is less than 750px */
+    }
+}
+
