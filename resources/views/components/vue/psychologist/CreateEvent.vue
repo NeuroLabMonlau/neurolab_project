@@ -39,62 +39,6 @@
                     </div>
                     <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                         <div class>
-                            <div class="mb-4">
-                                <label
-                                    for="exampleFormControlInput1"
-                                    class="block text-gray-700 text-sm font-bold mb-2"
-                                    >Buscar Usuario</label
-                                >
-                                <!-- Buscador way -->
-                                <div class="flex flex-col relative">
-                                    <div class="w-full">
-                                        <div
-                                            class="my-2 p-1 bg-white flex border border-gray-200 rounded"
-                                        >
-                                            <div
-                                                class="flex flex-auto flex-wrap"
-                                            ></div>
-                                            <input
-                                                placeholder="Buscar Usuario"
-                                                class="p-1 px-2 appearance-none outline-none w-full text-gray-800"
-                                            />
-                                            <div
-                                                class="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200"
-                                            >
-                                                <button
-                                                    type="button"
-                                                    class="cursor-pointer w-6 h-6 text-red-600 outline-none focus:outline-none"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="100%"
-                                                        height="100%"
-                                                        fill="none"
-                                                        viewBox="0 0 24 24"
-                                                        stroke="currentColor"
-                                                        stroke-width="2"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        class="feather feather-chevron-up w-4 h-4"
-                                                    >
-                                                        <polyline
-                                                            points="18 15 12 9 6 15"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Options select -->
-                                    <div
-                                        class="absolute shadow bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto svelte-5uyqqj"
-                                    >
-                                        <!-- partial component -->
-                                    </div>
-                                    <!-- end Options -->
-                                </div>
-                                <!-- comienzo input -->
-                            </div>
                             <!-- end Buscador -->
                             <div class="mb-4">
                                 <label
