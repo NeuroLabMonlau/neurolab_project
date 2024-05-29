@@ -12,6 +12,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Providers\RouteServiceProvider;
+
 
 class User extends Authenticatable
 {
@@ -77,28 +79,44 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function getRedirectRoute(): string
+    {
+        return match ($this->role->role_type) {
+            'admin' => 'admin.dashboard',
+            'student' => 'student.dashboard',
+            'teacher' => 'teacher.dashboard',
+            'tutor' => 'tutor.dashboard',
+            'psychologist' => 'psycho.dashboard',
+            default => 'login',
+        };
+    }
+
     public function student(): HasOne
     {
         return $this->hasOne(Student::class);
     }
 
-      /**
+    public function docent()
+    {
+        return $this->hasOne(Docent::class);
+    }
 
-     * Determina si el usuario es un administrador.
+    /**
 
-     *
+   * Determina si el usuario es un administrador.
 
-     * @return bool
+   *
 
-     */
+   * @return bool
 
-     public function isAdmin(): bool
+   */
 
-     {
- 
-         // Verifica si el usuario tiene un rol de administrador
- 
-         return $this->role->name === 'admin';
- 
-     }
+    public function isAdmin(): bool
+    {
+
+        // Verifica si el usuario tiene un rol de administrador
+
+        return $this->role->name === 'admin';
+
+    }
 }

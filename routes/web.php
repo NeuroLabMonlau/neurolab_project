@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Psycho\IndexController;
 use App\Http\Controllers\Psycho\AssignController;
+use App\Http\Controllers\Students\PlayGamesController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +28,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     // admin routes
     Route::middleware('admin')->prefix('admin')->group(function () {
         Route::get('/dashboard/users', [UserController::class, 'index'])->name('users');
-        Route::view('/dashboard', 'admin.dashboard')->name('dashboard');
+        Route::view('/dashboard', 'admin.dashboard')->name('admin.dashboard');
         Route::view('/dashboard/neurocrib', 'admin.neurocrib.index')->name('neurocrib');
         Route::view('/dashboard/seguimiento', 'admin.seguimiento.index')->name('seguimiento');
         Route::view('/dashboard/users', 'admin.users.index')->name('admin.users.index');
@@ -45,6 +47,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
         Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
         Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
+
+        Route::get('/dashboard/games', [PlayGamesController::class, 'index'])->name('student.games.index');
+        Route::get('/dashboard/games/play/{student_id}/{gameTest_id}/{test_id}/{game_id}/{level}', [PlayGamesController::class, 'play'])->name('student.games.play');
     });
 
     // teacher routes
@@ -61,7 +66,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     // psychologist routes
     Route::middleware('psychologist')->prefix('psychologist')->group(function () {
-        Route::view('/dashboard', 'psychologist.dashboard')->name('dashboard');
+        
+        Route::view('/dashboard', 'psychologist.dashboard')->name('psycho.dashboard');
         Route::get('/users', [IndexController::class, 'index'])->name('psycho.users.index');
         Route::post('/users', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
         Route::post('/users/role', [IndexController::class, 'usersFilterByRole'])->name('psycho.users.role');
@@ -70,6 +76,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/users/course', [IndexController::class, 'usersFilterByCourse'])->name('psycho.users.course');
         Route::post('/search', [IndexController::class, 'search'])->name('psycho.users.search');
         Route::get('/search', [IndexController::class, 'search'])->name('psycho.users.search');
+        Route::get('/users/create', [IndexController::class, 'createuserview'])->name('psycho.users.createview');
+        Route::get('/users/{id}', [IndexController::class, 'edituser'])->name('psycho.users.edit');
+        Route::get('/users/{id}/delete', [IndexController::class, 'deleteuser'])->name('psycho.users.delete');
+        Route::get('users1/{id}' , [IndexController::class, 'enabledit'])->name('psycho.users.enabledit');
+        Route::put('users/{id}' , [IndexController::class, 'updateUser'])->name('psycho.users.updateuser');
+        Route::delete('usersd/{id}' , [IndexController::class, 'deleteuser'])->name('psycho.users.deleteuser');
+        Route::put('/users1/create', [IndexController::class, 'createuser'])->name('psycho.users.store');
+
 
         // Rutas de calendario
         Route::view('/calendar','psychologist.calendar.index')->name('psycho.calendar.index');
