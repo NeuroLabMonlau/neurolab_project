@@ -13,10 +13,11 @@ const PsychologistCalendar = ({ id }) => {
     const [search, setSearch] = useState("");
     const [modal, setModal] = useState(false);
     const [day, setDay] = useState();
-
+    
     const {
         register,
         handleSubmit,
+        setValue,
         formState: { errors },
     } = useForm();
 
@@ -45,6 +46,7 @@ const PsychologistCalendar = ({ id }) => {
                 .get(`/psychologist/appointments/search/users?search=${search}`)
                 .then((response) => {
                     setUsers(response.data.data);
+                    setValue("receiver_id", "");
                 })
                 .catch((error) => {
                     console.error(error);
@@ -74,7 +76,6 @@ const PsychologistCalendar = ({ id }) => {
             .catch((error) => {
                 console.error(error);
             });
-
     });
 
     return (
@@ -271,6 +272,7 @@ const PsychologistCalendar = ({ id }) => {
                                                 >
                                                     Usuario receptor
                                                 </label>
+
                                                 <select
                                                     id="receiverUser"
                                                     {...register(
@@ -285,17 +287,26 @@ const PsychologistCalendar = ({ id }) => {
                                                     )}
                                                     className="mt-1 block form-select w-full py-2 px-3 border border-zinc-300 text-black bg-white rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                                                 >
+                                                    <option value="">
+                                                        Selecciona un usuario
+                                                    </option>
                                                     {users &&
-                                                        users.map((user) => (
-                                                            <option
-                                                                className="text-black"
-                                                                key={user.id}
-                                                                value={user.id}
-                                                            >
-                                                                {user.username}{" "}
-                                                                - {user.email}
-                                                            </option>
-                                                        ))}
+                                                        users.map(
+                                                            (user, index) => (
+                                                                
+                                                                <option
+                                                                    key={index}
+                                                                    value={
+                                                                        user.id
+                                                                    }
+                                                                    className="text-black"
+                                                                >
+                                                                    {
+                                                                        user.username
+                                                                    }
+                                                                </option>
+                                                            )
+                                                        )}
                                                 </select>
 
                                                 {errors.receiver_id && (
