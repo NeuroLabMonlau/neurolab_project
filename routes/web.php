@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Psycho\IndexController;
 use App\Http\Controllers\Psycho\AssignController;
 use App\Http\Controllers\Students\PlayGamesController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
         Route::get('/dashboard/games', [PlayGamesController::class, 'index'])->name('student.games.index');
         Route::get('/dashboard/games/play/{student_id}/{gameTest_id}/{test_id}/{game_id}/{level}', [PlayGamesController::class, 'play'])->name('student.games.play');
+
+        Route::prefix('appointments')->group(function () {
+            Route::get('/receiver/{receiver_id}', [AppointmentController::class, 'getAppointmentsByReceiver']);
+
+        });
     });
 
     // teacher routes
@@ -128,6 +134,17 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/games/assign-student/{student_id}/{test_id}', [AssignController::class, 'assignGames'])->name('psycho.games.assign.store');
         Route::get('/games/assign-course/{id}', [AssignController::class, 'assignGamesCourseIndex'])->name('psycho.games.assign-course.index');
         Route::post('/games/assign-course/{course_id}/{test_id}', [AssignController::class, 'assignGamesCourse'])->name('psycho.games.assign-course.store');
+
+        
+                // Appointments
+        Route::prefix('appointments')->group(function () {
+            Route::post('/', [AppointmentController::class, 'store']);
+            Route::get('/{id}', [AppointmentController::class, 'getAppointmentById']);
+            Route::get('/sender/{sender_id}', [AppointmentController::class, 'getAppointmentsBySender']);
+            Route::get('/receiver/{receiver_id}', [AppointmentController::class, 'getAppointmentsByReceiver']);
+            Route::get('/search/users', [AppointmentController::class, 'searchUsers']);
+        });
+        
     });
     
 });

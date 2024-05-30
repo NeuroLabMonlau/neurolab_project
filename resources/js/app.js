@@ -1,4 +1,5 @@
 import "./bootstrap";
+import './react/main.jsx'
 
 import { createApp } from "vue";
 // import calendar from "../views/components/vue/calendar.vue";

@@ -1,13 +1,10 @@
 <x-app-layout>
-    <x-mary-header title="Calendario" size="text-3xl" with-anchor />
-    <div id="app">
-        <calendar/>
-    </div>
 
-    {{-- <livewire:appointments-calendar
-    before-calendar-view="calendar/before"
-    /> --}}
+    <h1 class="text-4xl font-semibold text-gray-800">
+        Calendario
+    </h1>
 
+    <section id="react-root" data={{auth()->user()->id}}>
+
+    </section>
 </x-app-layout>
-
-
