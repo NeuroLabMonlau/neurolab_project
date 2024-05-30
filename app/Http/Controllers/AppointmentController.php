@@ -98,9 +98,13 @@ class AppointmentController extends Controller
     {
         $search = $request->input('search');
 
-        $users = User::where('username', 'like', "%$search%")
-            ->orWhere('email', 'like', "%$search%")
+        $users = User::where(function ($query) use ($search) {
+            $query->where('username', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%");
+        })
+            ->where('role_id', 3)
             ->paginate(10);
+
 
         return response()->json($users);
     }
