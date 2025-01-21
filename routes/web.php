@@ -3,6 +3,9 @@
 // use App\Http\Middleware\isAdmin;
 // use App\Http\Middleware\isStudent;
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\MicrosoftLogin;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Psycho\GamesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -17,6 +20,23 @@ use App\Http\Controllers\Psycho\IndexController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// Email verification routes
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+    return back()->with('status', 'verification-link-sent');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // Marca el email como verificado
+    return redirect('/dashboard'); // Cambia la ruta según tu preferencia
+})->middleware(['auth', 'signed'])->name('verification.verify');
+Route::get('/email/verify', function () {   
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+// Microsoft OAUTH routes
+Route::get('/microsoft-login', [MicrosoftLogin::class, 'redirectToMicrosoft'])->name('microsoft.redirect');
+Route::get('/callback', [MicrosoftLogin::class, 'handleMicrosoftCallback'])->name('microsoft.callback');
+Route::redirect('/', 'login');
 
 Route::redirect('/', 'login');
 
@@ -39,10 +59,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
 
     // student routes
-    Route::middleware('student')->prefix('student')->group(function () {
+    Route::middleware(['student', 'verified'])->prefix('student')->group(function () {
         Route::view('/dashboard', 'web.sections.student.index')->name('student.dashboard');
         Route::view('/dashboard/chat', 'web.sections.student.chat')->name('student.chat');
         Route::view('/dashboard/calendar', 'web.sections.student.calendar')->name('student.calendar');
+        Route::view('/dashboard/calendar', 'web.sectinos.student.calendar')->name('student.calendar');
         Route::view('/dashboard/profile', 'web.sections.student.profile')->name('student.profile');
     });
 
