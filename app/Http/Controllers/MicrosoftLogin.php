@@ -47,8 +47,6 @@ class MicrosoftLogin extends Controller
 
             $user = $this->createNewUser->createMicrosoftLogIn($groupNames, $microsoftUser);
 
-            dd($user);
-
             Auth::login($user);
             $redirectUrl = match (Auth::user()->role->role_type) {
                 'admin' => RouteServiceProvider::ADMIN,

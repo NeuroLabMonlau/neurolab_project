@@ -44,6 +44,7 @@ class CreateNewUser implements CreatesNewUsers
                 'email_verified_at' => Carbon::now()
             ]
         );
+
         Log::info('Carbon::now()' . Carbon::now());
 
         return $user;

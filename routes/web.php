@@ -33,6 +33,7 @@ Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $requ
 Route::get('/email/verify', function () {   
     return view('auth.verify-email');
 })->middleware('auth')->name('verification.notice');
+
 // Microsoft OAUTH routes
 Route::get('/microsoft-login', [MicrosoftLogin::class, 'redirectToMicrosoft'])->name('microsoft.redirect');
 Route::get('/callback', [MicrosoftLogin::class, 'handleMicrosoftCallback'])->name('microsoft.callback');
